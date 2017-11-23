@@ -10,13 +10,13 @@ import java.util.Scanner;
 import modelo.LineaProducto;
 import persistencia.IPersistencia;
 import persistencia.PersistenciaLista;
-import modelo.Producto;
 import modelo.ListaCompra;
 
 public class InterfazConsola {
 	public static final String fileListaCompra = "listaCompra.txt";
 	public ListaCompra listaCompra =ListaCompra.getInstance();
 	public ListaCompra listaFavoritos =ListaCompra.getInstance();
+	public LineaProducto productos =null;	
 
 	public void muestraMenu() {
 		System.out.println("--------------------------------------------------------------");
@@ -30,13 +30,12 @@ public class InterfazConsola {
 		System.out.println("1-  Añadir producto");
 		System.out.println("2-  Eliminar producto");
 		System.out.println("3-  Modificar cantidad de producto");
-		System.out.println("4-  Disminuir cantidad de producto");
-		System.out.println("5-  Marcar como producto favorito");
-		System.out.println("6-  Desmarcar como producto favorito");
-		System.out.println("7-  Marcar como producto comprado");
-		System.out.println("8-  Mostrar productos favoritos");
-		System.out.println("9-  Eliminar favoritos");
-		System.out.println("10-  Guardar datos");
+		System.out.println("4-  Marcar como producto favorito");
+		System.out.println("5-  Desmarcar como producto favorito");
+		System.out.println("6-  Marcar como producto comprado");
+		System.out.println("7-  Mostrar productos favoritos");
+		System.out.println("8-  Eliminar favoritos");
+		System.out.println("9-  Guardar datos");
 		System.out.println("0- Salir\n");
 		eligeOpcion();
 
@@ -62,52 +61,47 @@ public class InterfazConsola {
 				System.out.println("Nombre del nuevo producto:");
 				producto = teclado.next();
 				listaCompra.añadirProducto(producto,val);
-				persistenciaLista.guardarContenido(listaCompra);
+				//persistenciaLista.guardarContenido(listaCompra);
 				break;
 			case 2:
 				System.out.println("Elige producto");
 				producto = teclado.next();
-				listaCompraCarg = listaCompra.eliminarProducto(producto);
+				listaCompra.eliminarProducto(producto);
 				break;
 
 			case 3:
 				System.out.println("Elige producto");
 				producto = teclado.next();
-				LineaProducto.setCantidad();
+				productos.setCantidad(val);
 				break;
 				
-			case 4:
-				System.out.println("Elige producto");
-				producto = teclado.next();
-				listaCompraCarg = gestionListaCompra.disminuirCantidad(listaCompraCarg, producto);
-				break;
 
 			case 5:
 				System.out.println("Elige producto");
 				producto = teclado.next();
-				listaCompraCarg = listaFavoritos.marcarFavorito(listaCompraCarg, producto);
+				listaFavoritos.añadirFavorito( producto);
 				break;
 
 			case 6:
 				System.out.println("Elige producto");
 				producto = teclado.next();
-				listaCompraCarg = listaFavoritos.desmarcarFavorito(listaCompraCarg, producto);
+				listaFavoritos.eliminarFavorito(producto);
 				break;
 
 			case 7:
 				System.out.println("Elige producto");
 		
 				producto = teclado.next();
-				listaCompraCarg = gestionListaCompra.marcarComprado(listaCompraCarg, producto);
+				 productos.marcarComprado();
 				break;
 
 			case 8:
-				favoritos = listaFavoritos.obtenerFavoritos(listaCompraCarg);
+				favoritos = listaFavoritos.getFavoritos();
 				System.out.println(favoritos.toString());
 				break;
 
 			case 9:
-				List<LineaLista> contGuardar = new ArrayList<LineaLista>(listaCompraCarg.values());
+				List<LineaProducto> contGuardar = new ArrayList<LineaProducto>();
 				persistenciaLista.guardarContenido(contGuardar);
 				System.out.println(contGuardar);
 				break;

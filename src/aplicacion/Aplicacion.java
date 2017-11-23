@@ -33,7 +33,7 @@ public class Aplicacion {
 	 */
 	public static void main(String[] args) {
 		InterfazConsola apliListaCompra = new InterfazConsola();
-//		apliListaCompra.muestraMenu();
+    	apliListaCompra.muestraMenu();
 		
 		
 		 // Lista
