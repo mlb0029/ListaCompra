@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Almacena los datos de lista de la compra.
@@ -12,36 +13,87 @@ import java.util.HashMap;
  */
 public class ListaCompra {
 	
+	
+	/**
+	 * Almacena una lista de productos.
+	 */
+	private HashMap<String, Producto> listaProductos;
+
 	/**
 	 * Almacena la lista de la compra.
 	 */
-	HashMap<String, LineaProducto> listaCompra;
+	private HashMap<String, LineaProducto> listaCompra;
 	
 	/**
 	 * Instancia la clase con las listas vacias.
 	 */
 	public ListaCompra() {
 		this.listaCompra = new HashMap<String, LineaProducto>();
+		this.listaProductos = new HashMap<String, Producto>();
 	}
 	
-	public boolean añadirProducto(String producto, Integer cantidad, Boolean esFavorito) {
-		LineaProducto item = this.listaCompra.put(producto, new LineaProducto(producto, cantidad, esFavorito));
-		if (item.equals(null))
-			return false;
-		return true;
-		//TODO Comprobar errores
+	public Boolean crearProducto(Producto producto) {
+		if (!listaProductos.containsKey(producto.getNombre())) {
+			listaProductos.put(producto.getNombre(), producto);
+			return true;
+		}
+		return false;
+	}
+
+	public Boolean crearProducto(String nombre, Boolean esFavorito) {
+		Producto producto = new Producto(nombre, esFavorito);
+		return crearProducto(producto);
 	}
 	
-	public boolean eliminarProducto(String producto) {
-		return this.listaCompra.remove(producto) != null;
-		//TODO Test para probar que funciona
+	public Producto getProducto(String nombre) {
+		return listaProductos.get(nombre);
 	}
 	
-	public void vaciarListaCompra() {
-		this.listaCompra.clear();
+	public Boolean limpiarFavoritos () {
+		Boolean retorno = false;
+		for (Producto producto : listaProductos.values()) {
+			if (producto.isFavorito()) {
+				if (listaCompra.containsKey(producto.getNombre()))
+					producto.desmarcarFavorito();
+				else
+					listaProductos.remove(producto.getNombre());
+				retorno = true;
+			}
+		}
+		return retorno;
 	}
 	
-	public LineaProducto getLinea(String producto) {
-		return this.listaCompra[producto];
+	public HashSet<Producto> getFavoritos(){
+		HashSet<Producto> retorno = new HashSet<Producto>();
+		for (Producto producto : listaProductos.values())
+			if (producto.isFavorito())
+				retorno.add(producto);
+		return retorno;
 	}
+	
+	public Boolean añadirProducto(String nombre, Boolean esFavorito, Integer cantidad) {
+		Producto producto = new Producto(nombre, esFavorito);
+		if (crearProducto(producto)) {
+			LineaProducto linea = new LineaProducto(producto, cantidad);
+			listaCompra.put(nombre, linea);
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean añadirProducto(Producto producto, Integer cantidad) {
+		if (crearProducto(producto)) {
+			LineaProducto linea = new LineaProducto(producto, cantidad);
+			listaCompra.put(producto.getNombre(), linea);
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean eliminarProducto() {
+		// TODO eliminarProducto()
+		return false;
+	}
+	
+	
 }

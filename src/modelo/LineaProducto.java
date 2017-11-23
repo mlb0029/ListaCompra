@@ -39,7 +39,7 @@ public class LineaProducto {
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.estaComprado = false;
-		//TODO Comprobar errores
+		//TODO Comprobar errores en LineaProducto(Producto producto, Integer cantidad)
 	}
 
 	/**
@@ -73,7 +73,6 @@ public class LineaProducto {
 			return true;
 		}
 		return false;
-		//TODO Comprobar errores
 	}
 
 	/**

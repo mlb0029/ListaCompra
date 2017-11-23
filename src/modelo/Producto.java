@@ -41,7 +41,7 @@ public class Producto {
 	/**
 	 * @return Si está marcado como favorito o no.
 	 */
-	public Boolean getEsFavorito() {
+	public Boolean isFavorito() {
 		return esFavorito;
 	}
 
