@@ -24,7 +24,7 @@ public class Producto {
 	 * @param nombre Nombre del producto.
 	 * @param esFavorito Indica si el producto está marcado como favorito o no.
 	 */
-	public Producto(String nombre, Boolean esFavorito) {
+	Producto(String nombre, Boolean esFavorito) {
 		this.nombre = nombre;
 		this.esFavorito = esFavorito;
 	}
@@ -46,18 +46,24 @@ public class Producto {
 	}
 
 	/**
-	 * Marca un producto como favorito.
+	 * Marca el producto como favorito.
 	 */
-	public void marcarFavorito() {
+	void marcarFavorito() {
 		this.esFavorito = true;
 	}
 	
 	/**
-	 * Marca un producto como favorito.
+	 * Marca el producto como favorito.
 	 */
-	public void desmarcarFavorito() {
+	void desmarcarFavorito() {
 		this.esFavorito = false;
 	}
 	
+	/**
+	 * Marca o desmarca el producto como favorito según su estado actual.
+	 */
+	void setFavorito() {
+		this.esFavorito = !this.esFavorito;
+	}
 	
 }

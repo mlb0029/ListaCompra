@@ -35,7 +35,7 @@ public class LineaProducto {
 	 * @param cantidad Cantidad del producto a comprar.
 	 * @param esFavorito Variable que indica si el producto está almacenado como favorito o no.
 	 */
-	public LineaProducto(Producto producto, Integer cantidad) {
+	LineaProducto(Producto producto, Integer cantidad) {
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.estaComprado = false;
