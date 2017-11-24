@@ -56,31 +56,55 @@ public class ListaCompra {
 	}
 
 	/**
+	 * Devuelve un producto dado su nombre.
+	 * 
+	 * @param nombreProducto Nombre del producto del cual se desea obtener información.
+	 * @return Producto o null si el producto no existe.
+	 */
+	public Producto getProducto(String nombreProducto) {
+		return listaProductos.getOrDefault(nombreProducto, null);
+	}
+	/**
 	 * Añade un producto a la lista de la compra.
 	 * <p>
-	 * Si el producto existe como favorito se añade ese producto, en caso contrario se crea un producto 
-	 * no favorito y se añade a la lista. En ambos casos se les asigna la cantidad a comprar pasada como argumento.
+	 * Si el producto no existe, lo añade a la lista de productos como no favorito. Si ya había un producto con
+	 * mismo nombre en la lista de la compra, devuelve false y la función no realiza ningún cambio.
 	 * 
 	 * @param nombreProducto Nombre del producto a comprar.
 	 * @param cantidad Cantidad del producto a comprar
+	 * @return False si el producto ya existía por tanto no ha tenido efecto la llamada a la funcion, True en caso contrario.
 	 */
-	public void añadirProducto(String nombreProducto, Integer cantidad) {
-		Producto producto = listaProductos.getOrDefault(nombreProducto, new Producto(nombreProducto, false));
-		LineaProducto linea = new LineaProducto(producto, cantidad);
-		
-		listaProductos.put(nombreProducto, producto);
-		listaCompra.put(nombreProducto, linea);
+	public Boolean añadirProducto(String nombreProducto, Integer cantidad) {
+		Boolean retorno = false;
+		Producto producto = getProducto(nombreProducto);
+		if (producto == null) {
+			producto = new Producto(nombreProducto, false);
+			LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
+			listaProductos.put(nombreProducto, producto);
+			listaCompra.put(nombreProducto, lineaProducto);
+			retorno = true;
+		}else if (!listaCompra.containsKey(nombreProducto)) {
+			LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
+			listaCompra.put(nombreProducto, lineaProducto);
+			retorno = true;
+		}
+		return retorno;
 	}
 
 
 	/**
 	 * Elimina, si existe, un producto de la lista de la compra.
+	 * <p>
+	 * Si el producto no está marcado coo favorito, se elimina de la lista de productos.
 	 * 
 	 * @param nombreProducto Nombre del producto a eliminar.
 	 * @return true si ha sido eliminado algún producto de la lista de la compra y false en caso contrario.
 	 */
 	public Boolean eliminarProducto(String nombreProducto) {
-			return listaCompra.remove(nombreProducto) != null;
+		Boolean retorno = listaCompra.remove(nombreProducto) != null;
+		if (retorno && !getProducto(nombreProducto).isFavorito())
+			this.listaProductos.remove(nombreProducto);
+		return retorno;
 	}
 
 
@@ -118,34 +142,25 @@ public class ListaCompra {
 	 * @return false si el producto no existe o true en caso contrario
 	 */
 	public Boolean eliminarFavorito(String nombreProducto) {
-		Boolean retorno = false;
-		Producto producto = listaProductos.get(nombreProducto);
-		if (producto != null) {
+		Producto producto = getProducto(nombreProducto);
+		Boolean retorno = producto != null;
+		if (retorno)
 			if (listaCompra.containsKey(nombreProducto))
 				producto.desmarcarFavorito();
 			else
 				listaProductos.remove(nombreProducto);
-			retorno = true;
-		}
 		return retorno;
 	}
 
 	/**
 	 * Limpia la lista de favoritos.
-	 * 
-	 * @return false si no había favoritos, true en caso contrario.
 	 */
-	public Boolean limpiarFavoritos () {
-		Boolean retorno = false;
-		for (Producto producto : listaProductos.values()) {
-			if (producto.isFavorito()) {
+	public void limpiarFavoritos () {
+		for (Producto producto : listaProductos.values())
+			if (producto.isFavorito())
 				if (listaCompra.containsKey(producto.getNombre()))
 					producto.desmarcarFavorito();
 				else
 					listaProductos.remove(producto.getNombre());
-				retorno = true;
-			}
-		}
-		return retorno;
 	} 
 }
