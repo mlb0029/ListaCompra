@@ -48,11 +48,10 @@ public class InterfazConsola {
 		
 		HashSet<String>  favoritos = listaFavoritos.getFavoritos();
 		Scanner teclado = new Scanner(System.in);
-		 String cantidad =  teclado.next();
-		 Integer val= Integer.parseInt(cantidad);
+
 		int numero = -1;
 		try {
-			while (numero!=10){
+			while (numero!=0){
 			numero = teclado.nextInt();
 			String producto;
 				
@@ -60,6 +59,9 @@ public class InterfazConsola {
 			case 1:
 				System.out.println("Nombre del nuevo producto:");
 				producto = teclado.next();
+				System.out.println("Cantidad:");
+				 String cantidad =  teclado.next();
+				 Integer val= Integer.parseInt(cantidad);
 				listaCompra.añadirProducto(producto,val);
 				//persistenciaLista.guardarContenido(listaCompra);
 				break;
@@ -72,43 +74,55 @@ public class InterfazConsola {
 			case 3:
 				System.out.println("Elige producto");
 				producto = teclado.next();
-				productos.setCantidad(val);
+				 String cantidad1 =  teclado.next();
+				 Integer val1= Integer.parseInt(cantidad1);
+				productos.setCantidad(val1);
 				break;
 				
 
-			case 5:
+			case 4:
 				System.out.println("Elige producto");
 				producto = teclado.next();
 				listaFavoritos.añadirFavorito( producto);
 				break;
 
-			case 6:
+			case 5:
 				System.out.println("Elige producto");
 				producto = teclado.next();
 				listaFavoritos.eliminarFavorito(producto);
 				break;
 
-			case 7:
+			case 6:
 				System.out.println("Elige producto");
-		
 				producto = teclado.next();
 				 productos.marcarComprado();
 				break;
 
-			case 8:
+			case 7:
 				favoritos = listaFavoritos.getFavoritos();
 				System.out.println(favoritos.toString());
 				break;
+			case 8:
+				producto = teclado.next();
+				listaFavoritos.eliminarFavorito(producto);
+				System.out.println(favoritos.toString());
+				break;
+				
 
 			case 9:
 				List<LineaProducto> contGuardar = new ArrayList<LineaProducto>();
 				persistenciaLista.guardarContenido(contGuardar);
 				System.out.println(contGuardar);
 				break;
-
 			case 10:
+				listaFavoritos.limpiarFavoritos();
+				System.out.println(favoritos.toString());
+				break;
+				
+			case 0:
 				return;
 			default:
+			
 				muestraMenu();
 			}
 			}
