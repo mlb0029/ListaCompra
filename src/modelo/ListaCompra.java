@@ -45,16 +45,66 @@ public class ListaCompra {
 			instance = new ListaCompra();
 		return instance;
 	}
+	
+	/**
+	 * Elimina la única instancia de la clase.
+	 */
+	public static void delInstance() {
+		instance = null;
+	}
+
+	/**
+	 * Devuelve el número de productos que contiene la lista de la compra.
+	 * 
+	 * @return Número de productos que contiene la lista de la compra.
+	 */
+	public Integer size() {
+		return listaCompra.size();
+	}
 
 	/**
 	 * Devuelve la lista de la compra.
+	 * <p>
+	 * Devuelve un HashMap&lt;String, LineaProducto&gt;.
 	 * 
 	 * @return Collección que contiene la lista de la compra.
 	 */
 	public HashMap<String, LineaProducto> getListaCompra() {
-		return listaCompra;
+		return new HashMap<String, LineaProducto>(listaCompra);
 	}
-
+	
+	/**
+	 * Devuelve la linea de la lista asociada a un producto.
+	 * 
+	 * @param nombreProducto Nombre del prducto.
+	 * @return Linea de un producto (Producto y cantidad) o null si no existe.
+	 * @see LineaProducto
+	 */
+	public LineaProducto getLineaProducto(String nombreProducto) {
+		return this.listaCompra.getOrDefault(nombreProducto, null);
+	}
+	
+	/**
+	 * Devuelve el número de productos que contiene la lista de la compra más los que están almacenados como
+	 * favoritos y no están en la lista de la compra.
+	 * 
+	 * @return Número total de productos.
+	 */
+	public Integer numProductos() {
+		return listaProductos.size();
+	}
+	
+	/**
+	 * Devuelve la lista de los productos existentes.
+	 * <p>
+	 * HasMap&lt;String, Producto&gt; de la lista de productos.
+	 * 
+	 * @return La lista de los productos existentes.
+	 */
+	public HashMap<String, Producto> getListaProductos(){
+		return listaProductos;
+	}
+	
 	/**
 	 * Devuelve un producto dado su nombre.
 	 * 
@@ -109,9 +159,18 @@ public class ListaCompra {
 
 
 	/**
-	 * Devuelve los productos que se han almacenado como favoritos.
+	 * Devuelve el número de productos que se almacenan como favoritos.
 	 * 
-	 * @return Set con los productos que se han almacenado como favoritos.
+	 * @return Número de productos que se almacenan como favoritos.
+	 */
+	public Integer numFavoritos() {
+		return getFavoritos().size();
+	}
+
+	/**
+	 * Devuelve los nombres de los productos que se han almacenado como favoritos.
+	 * 
+	 * @return Set con los nombres de los productos que se han almacenado como favoritos.
 	 */
 	public HashSet<String> getFavoritos(){
 		HashSet<String> retorno = new HashSet<String>();
@@ -120,7 +179,6 @@ public class ListaCompra {
 				retorno.add(producto.getNombre());
 		return retorno;
 	}
-
 
 	/**
 	 * Añade o marca un producto como favorito, sin afectar a la lista de la compra.
@@ -143,7 +201,7 @@ public class ListaCompra {
 	 */
 	public Boolean eliminarFavorito(String nombreProducto) {
 		Producto producto = getProducto(nombreProducto);
-		Boolean retorno = producto != null;
+		Boolean retorno = producto != null && producto.isFavorito();
 		if (retorno)
 			if (listaCompra.containsKey(nombreProducto))
 				producto.desmarcarFavorito();
@@ -156,11 +214,11 @@ public class ListaCompra {
 	 * Limpia la lista de favoritos.
 	 */
 	public void limpiarFavoritos () {
-		for (Producto producto : listaProductos.values())
-			if (producto.isFavorito())
-				if (listaCompra.containsKey(producto.getNombre()))
-					producto.desmarcarFavorito();
-				else
-					listaProductos.remove(producto.getNombre());
+		HashSet<String> favoritos = getFavoritos();
+		for (String fav : favoritos)
+			if (listaCompra.containsKey(fav))
+				getProducto(fav).desmarcarFavorito();
+			else
+				listaProductos.remove(fav);
 	} 
 }
