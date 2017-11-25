@@ -5,10 +5,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Persistencia<E> implements IPersistencia<E> {
+import modelo.ListaCompra;
+
+public abstract class Persistencia<E,F> implements IPersistencia<E,F> {
 
 	public String file = null;
 
@@ -28,8 +33,8 @@ public abstract class Persistencia<E> implements IPersistencia<E> {
 	}
 
 	@Override
-	public abstract void guardarContenido(List<E> lista);
+	public abstract void guardarContenido(Collection<E> lista);
 
-	public abstract Map<String, E> cargarCont();
+	public abstract ListaCompra cargarCont();
 
 }

@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 import modelo.LineaProducto;
 import modelo.ListaCompra;
 
-public class PersistenciaLista extends Persistencia<LineaProducto> {
+public class PersistenciaLista extends Persistencia<LineaProducto,String> {
 
 	public PersistenciaLista(String fileListaCompra) {
 		super(fileListaCompra);
@@ -23,10 +24,8 @@ public class PersistenciaLista extends Persistencia<LineaProducto> {
 	}
 
 	@Override
-	public void guardarContenido(List<LineaProducto> lista ) {
-		// Auto-generated
-		// method
-		// stub
+	public void guardarContenido(Collection<LineaProducto> lista) {
+	
 		PrintWriter pw = null;
 		FileOutputStream fo = null;
 		File file = null;
@@ -37,6 +36,7 @@ public class PersistenciaLista extends Persistencia<LineaProducto> {
 			for (LineaProducto p : lista) {
 				pw.write(p.toString());
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -52,13 +52,13 @@ public class PersistenciaLista extends Persistencia<LineaProducto> {
 	};
 
 	@Override
-	public Map<String, LineaProducto> cargarCont() {
+	public ListaCompra cargarCont() {
 		String csvFile = this.file;
 		BufferedReader br = null;
 		String line = "";
-		String cvsSplitBy = ";";
-
-		Map<String, LineaProducto> dictProd = new HashMap<String, LineaProducto>();
+		String cvsSplitBy = ",";
+		ListaCompra listaCompra = ListaCompra.getInstance();
+		
 
 		try {
 
@@ -68,15 +68,19 @@ public class PersistenciaLista extends Persistencia<LineaProducto> {
 
 				// use point comma as separator
 				String[] product = line.split(cvsSplitBy);
-				ListaCompra listaCompra = ListaCompra.getInstance();
-				//ListaCompra listaCompra = new ListaCompra();
-				ListaCompra listaFavoritos = ListaCompra.getInstance();
-				if (product.length==3){
-				listaCompra.añadirProducto(product[0], Integer.parseInt(product[1]));
-				}else{
-					listaFavoritos.añadirFavorito(product[0]);
-					
+				String nomProd=product[0].split(":")[1];
+				Boolean favorito= Boolean.parseBoolean(product[1].split(":")[1]);
+				Integer cantidad= Integer.parseInt(product[2].split(":")[1]);
+				Boolean comprado= Boolean.parseBoolean(product[3].split(":")[1]);
+
+				listaCompra.añadirProducto(nomProd,cantidad);
+				if (favorito){
+					listaCompra.añadirFavorito(nomProd);
 				}
+				if(comprado){
+					listaCompra.marcarComprado(nomProd);
+				}
+				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -91,7 +95,10 @@ public class PersistenciaLista extends Persistencia<LineaProducto> {
 				}
 			}
 		}
-		return dictProd;
+		
+		return listaCompra;
 	}
+
+
 
 }

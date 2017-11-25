@@ -1,0 +1,1 @@
+Producto:uno, Es Favorito:true, Cantidad:2, Esta Comprado:false

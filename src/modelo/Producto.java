@@ -8,6 +8,11 @@ package modelo;
  */
 public class Producto {
 	
+	@Override
+	public String toString() {
+		return  nombre + ", Es Favorito:" + esFavorito;
+	}
+
 	/**
 	 * Nombre del producto.
 	 */
