@@ -1,146 +1,179 @@
 package interfaces;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
-import modelo.LineaProducto;
-import persistencia.IPersistencia;
-import persistencia.PersistenciaLista;
+import persistencia.*;
 import modelo.ListaCompra;
 
 public class InterfazConsola {
+	
 	public static final String fileListaCompra = "listaCompra.txt";
-	public ListaCompra listaCompra = ListaCompra.getInstance();
-	public LineaProducto productos = null;
+	
+	public ListaCompra listaCompra;
+	
+	IPersistencia persistencia;
+	
+	public InterfazConsola() {
+		listaCompra = ListaCompra.getInstance();
+		persistencia = new PersistenciaListaCompra(fileListaCompra);
+		try {
+			listaCompra = persistencia.cargarCont();
+		} catch (Exception e) {
+			System.out.println("Error al cargar datos");
+		}
+		
+	}
 
 	public void muestraMenu() {
 		System.out.println("--------------------------------------------------------------");
-		System.out.println("Elige una opcion:\n");
 		muestraOpciones();
 		System.out.println("--------------------------------------------------------------");
+		System.out.println("Elige una opcion: ");
 
 	}
-
 	
 	public void muestraEnunciado() {
-		System.out.println("1-  Añadir producto");// ++
-		System.out.println("2-  Eliminar producto");// ++
-		System.out.println("3-  Modificar cantidad de producto");//
-		System.out.println("4-  Marcar como producto favorito");// ++
-		System.out.println("5-  Desmarcar como producto favorito");// ++
-		System.out.println("6-  Marcar como producto comprado");// ++
-		System.out.println("7-  Mostrar productos favoritos");// ++
-		System.out.println("8-  Mostrar lista de la compra");// ++
-		System.out.println("9-  Borrar todos los favoritos");
-		System.out.println("10- Guardar datos");// ++
-		System.out.println("11- Cargar datos");// ++
-		System.out.println("0- Salir\n");
-
-
+		System.out.println("00-  Salir");// ++
+		System.out.println("01-  Añadir producto");// ++
+		System.out.println("02-  Eliminar producto");// ++
+		System.out.println("03-  Modificar cantidad de producto");//
+		System.out.println("04-  Marcar como producto favorito");// ++
+		System.out.println("05-  Desmarcar como producto favorito");// ++
+		System.out.println("06-  Marcar como producto comprado");// ++
+		System.out.println("07-  Desmarcar como producto comprado");// ++
+		System.out.println("08-  Mostrar lista de la compra");// ++
+		System.out.println("09-  Mostrar productos favoritos");// ++
+		System.out.println("10-  Borrar lista de la compra");
+		System.out.println("11-  Borrar todos los favoritos");
+		System.out.println("12-  Guardar datos");// ++
+		System.out.println("13-  Cargar datos");// ++
 	}
 	public void muestraOpciones() {
 		muestraEnunciado();
 		eligeOpcion();
-
 	}
 
 	public void eligeOpcion() {
-		IPersistencia<LineaProducto, String> persistenciaLista = new PersistenciaLista(fileListaCompra);
-		HashMap<String, String> favoritos = ListaCompra.getFavoritos();
-		listaCompra = persistenciaLista.cargarCont();
-		favoritos = ListaCompra.getFavoritos();
 		
 		Scanner teclado = new Scanner(System.in);
-
-		int numero = -1;
+		Integer opcion = -1;
+		
 		try {
-			while (numero != 0) {
-				numero = teclado.nextInt();
-				String producto;
-
-				switch (numero) {
+			while (opcion != 0) {
+				opcion = teclado.nextInt();
+				switch (opcion) {
+				case 0:
+					break;
 				case 1:
 					System.out.println("Nombre del nuevo producto:");
-					producto = teclado.next();
+					String producto = teclado.next();
 					System.out.println("Cantidad:");
-					String cantidad = teclado.next();
-					Integer val = Integer.parseInt(cantidad);
-					listaCompra.añadirProducto(producto, val);
+					Integer cantidad = Integer.parseInt(teclado.next());
+					if(listaCompra.añadirProducto(producto, cantidad))
+						System.out.println("Añadido correctamente!");
+					else
+						System.out.println("Sin cambios");
 					// persistenciaLista.guardarContenido(listaCompra);
 					break;
 				case 2:
-					System.out.println("Elige producto");
+					System.out.println("Elige producto a eliminar");
 					producto = teclado.next();
-					listaCompra.eliminarProducto(producto);
+					if(listaCompra.eliminarProducto(producto))
+						System.out.println("Eliminado correctamente!");
+					else
+						System.out.println("Sin cambios");
 					break;
-
 				case 3:
-					System.out.println("Elige producto");
+					System.out.println("Elige producto a modificar cantidad");
 					producto = teclado.next();
 					System.out.println("Elige Cantidad");
-					String cantidad1 = teclado.next();
-					Integer val1 = Integer.parseInt(cantidad1);
-					listaCompra.modificarCantidad(producto,Integer.parseInt(cantidad1));
+					cantidad = Integer.parseInt(teclado.next());
+					if(listaCompra.getLineaProducto(producto) != null)
+						if(listaCompra.getLineaProducto(producto).setCantidad(cantidad))
+							System.out.println("Cambiada la cantidad correctamente!");
+						else
+							System.out.println("Sin cambios");
+					else
+						System.out.println("Sin cambios");
 					break;
-
 				case 4:
-					System.out.println("Elige producto");
+					System.out.println("Elige producto de la lista de la compra o uno nuevo");
 					producto = teclado.next();
 					listaCompra.añadirFavorito(producto);
-					favoritos = ListaCompra.getFavoritos();
+					System.out.println("Almacenado como favorito correctamente!");
 					break;
-
 				case 5:
-					System.out.println("Elige producto");
+					System.out.println("Elige producto a desmarcar como favorito");
 					producto = teclado.next();
-					listaCompra.eliminarFavorito(producto);
-					favoritos = new HashMap<String, String>();
-					System.out.println(favoritos.toString());
+					if(listaCompra.eliminarFavorito(producto)) {
+						System.out.println("Eliminado de favoritos correctamente!");
+					} else
+						System.out.println("Sin cambios");
 					break;
-
 				case 6:
-					System.out.println("Elige producto");
+					System.out.println("Elige producto a marcar como comprado");
 					producto = teclado.next();
-					listaCompra.marcarComprado(producto);
+					if(listaCompra.getLineaProducto(producto) != null) {
+						listaCompra.getLineaProducto(producto).marcarComprado();
+						System.out.println("Marcado como comprado correctamente!");
+					}else
+						System.out.println("Sin cambios");
 					break;
-
 				case 7:
-					System.out.println(favoritos.toString());
+					System.out.println("Elige producto a desmarcar como comprado");
+					producto = teclado.next();
+					if(listaCompra.getLineaProducto(producto) != null) {
+						listaCompra.getLineaProducto(producto).desmarcarComprado();
+						System.out.println("Desmarcado como comprado correctamente!");
+					}else
+						System.out.println("Sin cambios");
 					break;
 				case 8:
-					System.out.println("Los productos de su lista de la compra son :\n");
-					HashMap<String, LineaProducto> listaCompra2 = listaCompra.getListaCompra();
-					for (LineaProducto linea : listaCompra2.values()) {
-						System.out.println(linea);
+					if(listaCompra.size() > 0) {
+						System.out.println("Los productos de su lista de la compra son :\n");
+						for (String prod : listaCompra.getListaCompra().keySet()) {
+							System.out.println(listaCompra.getLineaProducto(prod));
+						}
+					}else {
+						System.out.println("Lista de la compra vacía");
 					}
 					break;
-
 				case 9:
-					listaCompra.limpiarFavoritos();
-					favoritos = new HashMap<String, String>();
-					System.out.println(favoritos.toString());
+					if(listaCompra.numFavoritos() > 0) {
+						System.out.println("Los productos de su lista de favoritos son :\n");
+						for (String prod : listaCompra.getFavoritos()) {
+							System.out.println(prod);
+						}
+					}else {
+						System.out.println("Lista de favoritos vacía");
+					}
 					break;
-
 				case 10:
-					System.out.println("Se estan guardando los datos" + favoritos);
-
-					persistenciaLista.guardarContenido(listaCompra.getListaCompra().values());
-					System.out.println(listaCompra);
+					listaCompra.limpiarListaCompra();
+					System.out.println("Lista de la compra eliminada completamente");
 					break;
 
 				case 11:
-					System.out.println("Cargando datos" + favoritos);
-					listaCompra = persistenciaLista.cargarCont();
-					favoritos = ListaCompra.getFavoritos();
-					System.out.println(listaCompra);
+					listaCompra.limpiarFavoritos();
+					System.out.println("Lista de favoritos eliminada completamente");
 					break;
-
-				case 0:
-					return;
+				case 12:
+					System.out.println("Se estan guardando los datos...");
+					try {
+						persistencia.guardarContenido(listaCompra);
+					} catch (Exception e) {
+						System.out.println("Error inesperado");
+					}
+					break;
+				case 13:
+					System.out.println("Se estan cargando los datos...");
+					try {
+						this.listaCompra = persistencia.cargarCont();
+					} catch (Exception e) {
+						System.out.println("Error inesperado");
+					}
+					break;
+					
 				default:
 
 					muestraMenu();

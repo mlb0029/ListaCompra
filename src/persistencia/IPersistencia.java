@@ -1,17 +1,15 @@
 package persistencia;
-import java.util.*;
-
 import modelo.ListaCompra;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public interface IPersistencia<E, F> {
+public interface IPersistencia {
 
 	public abstract void muestraContenido() throws FileNotFoundException, IOException;
 
-	public abstract void guardarContenido(Collection<E> lista);
+	public abstract void guardarContenido(ListaCompra listaCompra) throws Exception;
 
-	public abstract ListaCompra cargarCont();
+	public abstract ListaCompra cargarCont() throws Exception;
 
 }

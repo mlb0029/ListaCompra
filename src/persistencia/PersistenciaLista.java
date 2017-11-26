@@ -7,24 +7,16 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
-import modelo.LineaProducto;
 import modelo.ListaCompra;
 
-public class PersistenciaLista extends Persistencia<LineaProducto,String> {
+public class PersistenciaLista extends Persistencia {
 
 	public PersistenciaLista(String fileListaCompra) {
 		super(fileListaCompra);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void guardarContenido(Collection<LineaProducto> lista) {
+	public void guardarContenido(ListaCompra lista) {
 	
 		PrintWriter pw = null;
 		FileOutputStream fo = null;
@@ -33,8 +25,8 @@ public class PersistenciaLista extends Persistencia<LineaProducto,String> {
 			file = new File(this.file);
 			pw = new PrintWriter(new FileOutputStream(file), true);
 			fo = new FileOutputStream(file);
-			for (LineaProducto p : lista) {
-				pw.write(p.toString());
+			for (String p : lista.getListaCompra().keySet()) {
+				pw.write(lista.getLineaProducto(p).toString());
 			}
 
 		} catch (IOException e) {
@@ -45,7 +37,6 @@ public class PersistenciaLista extends Persistencia<LineaProducto,String> {
 			try {
 				fo.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -78,7 +69,7 @@ public class PersistenciaLista extends Persistencia<LineaProducto,String> {
 					listaCompra.añadirFavorito(nomProd);
 				}
 				if(comprado){
-					listaCompra.marcarComprado(nomProd);
+					listaCompra.getLineaProducto(nomProd).marcarComprado();
 				}
 				
 			}
