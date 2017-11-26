@@ -34,7 +34,7 @@ public class InterfazConsola {
 	
 	public void muestraEnunciado() {
 		System.out.println("00-  Salir");// ++
-		System.out.println("01-  Añadir producto");// ++
+		System.out.println("01-  AÃ±adir producto");// ++
 		System.out.println("02-  Eliminar producto");// ++
 		System.out.println("03-  Modificar cantidad de producto");//
 		System.out.println("04-  Marcar como producto favorito");// ++
@@ -60,7 +60,14 @@ public class InterfazConsola {
 		
 		try {
 			while (opcion != 0) {
+				try{
 				opcion = teclado.nextInt();
+				}catch(Exception e){
+					System.out.println("Introduce un numero");
+					opcion=0;
+					muestraOpciones();
+
+				}
 				switch (opcion) {
 				case 0:
 					break;
@@ -69,8 +76,8 @@ public class InterfazConsola {
 					String producto = teclado.next();
 					System.out.println("Cantidad:");
 					Integer cantidad = Integer.parseInt(teclado.next());
-					if(listaCompra.añadirProducto(producto, cantidad))
-						System.out.println("Añadido correctamente!");
+					if(listaCompra.aÃ±adirProducto(producto, cantidad))
+						System.out.println("AÃ±adido correctamente!");
 					else
 						System.out.println("Sin cambios");
 					// persistenciaLista.guardarContenido(listaCompra);
@@ -99,7 +106,7 @@ public class InterfazConsola {
 				case 4:
 					System.out.println("Elige producto de la lista de la compra o uno nuevo");
 					producto = teclado.next();
-					listaCompra.añadirFavorito(producto);
+					listaCompra.aÃ±adirFavorito(producto);
 					System.out.println("Almacenado como favorito correctamente!");
 					break;
 				case 5:
@@ -135,7 +142,7 @@ public class InterfazConsola {
 							System.out.println(listaCompra.getLineaProducto(prod));
 						}
 					}else {
-						System.out.println("Lista de la compra vacía");
+						System.out.println("Lista de la compra vacÃ­a");
 					}
 					break;
 				case 9:
@@ -145,7 +152,7 @@ public class InterfazConsola {
 							System.out.println(prod);
 						}
 					}else {
-						System.out.println("Lista de favoritos vacía");
+						System.out.println("Lista de favoritos vacÃ­a");
 					}
 					break;
 				case 10:
@@ -176,7 +183,7 @@ public class InterfazConsola {
 					
 				default:
 
-					muestraMenu();
+					break;
 				}
 				muestraEnunciado();
 			}
