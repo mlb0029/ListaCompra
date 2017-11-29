@@ -2,8 +2,8 @@ package interfaces;
 
 import java.util.Scanner;
 
-import persistencia.*;
-import modelo.ListaCompra;
+import modelo.datos.ListaCompra;
+import modelo.persistencia.*;
 
 public class InterfazConsola {
 	

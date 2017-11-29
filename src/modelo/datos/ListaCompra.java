@@ -1,4 +1,4 @@
-package modelo;
+package modelo.datos;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,9 +36,9 @@ public class ListaCompra {
 	}	
 	
 	/**
-	 * Devuelve la única instancia de la clase e instancia la clase si no hay instancia.
+	 * Devuelve la ï¿½nica instancia de la clase e instancia la clase si no hay instancia.
 	 * 
-	 * @return La única instancia de la clase
+	 * @return La ï¿½nica instancia de la clase
 	 */
 	public static ListaCompra getInstance() {
 		if (instance == null)
@@ -47,16 +47,16 @@ public class ListaCompra {
 	}
 	
 	/**
-	 * Elimina la única instancia de la clase.
+	 * Elimina la ï¿½nica instancia de la clase.
 	 */
 	public static void delInstance() {
 		instance = null;
 	}
 
 	/**
-	 * Devuelve el número de productos que contiene la lista de la compra.
+	 * Devuelve el nï¿½mero de productos que contiene la lista de la compra.
 	 * 
-	 * @return Número de productos que contiene la lista de la compra.
+	 * @return Nï¿½mero de productos que contiene la lista de la compra.
 	 */
 	public Integer size() {
 		return listaCompra.size();
@@ -67,7 +67,7 @@ public class ListaCompra {
 	 * <p>
 	 * Devuelve un HashMap&lt;String, LineaProducto&gt;.
 	 * 
-	 * @return Collección que contiene la lista de la compra.
+	 * @return Collecciï¿½n que contiene la lista de la compra.
 	 */
 	public HashMap<String, LineaProducto> getListaCompra() {
 		return new HashMap<String, LineaProducto>(listaCompra);
@@ -85,10 +85,10 @@ public class ListaCompra {
 	}
 	
 	/**
-	 * Devuelve el número de productos que contiene la lista de la compra más los que están almacenados como
-	 * favoritos y no están en la lista de la compra.
+	 * Devuelve el nï¿½mero de productos que contiene la lista de la compra mï¿½s los que estï¿½n almacenados como
+	 * favoritos y no estï¿½n en la lista de la compra.
 	 * 
-	 * @return Número total de productos.
+	 * @return Nï¿½mero total de productos.
 	 */
 	public Integer numProductos() {
 		return listaProductos.size();
@@ -108,23 +108,23 @@ public class ListaCompra {
 	/**
 	 * Devuelve un producto dado su nombre.
 	 * 
-	 * @param nombreProducto Nombre del producto del cual se desea obtener información.
+	 * @param nombreProducto Nombre del producto del cual se desea obtener informaciï¿½n.
 	 * @return Producto o null si el producto no existe.
 	 */
 	public Producto getProducto(String nombreProducto) {
 		return listaProductos.getOrDefault(nombreProducto, null);
 	}
 	/**
-	 * Añade un producto a la lista de la compra.
+	 * Aï¿½ade un producto a la lista de la compra.
 	 * <p>
-	 * Si el producto no existe, lo añade a la lista de productos como no favorito. Si ya había un producto con
-	 * mismo nombre en la lista de la compra, devuelve false y la función no realiza ningún cambio.
+	 * Si el producto no existe, lo aï¿½ade a la lista de productos como no favorito. Si ya habï¿½a un producto con
+	 * mismo nombre en la lista de la compra, devuelve false y la funciï¿½n no realiza ningï¿½n cambio.
 	 * 
 	 * @param nombreProducto Nombre del producto a comprar.
 	 * @param cantidad Cantidad del producto a comprar
-	 * @return False si el producto ya existía por tanto no ha tenido efecto la llamada a la funcion, True en caso contrario.
+	 * @return False si el producto ya existï¿½a por tanto no ha tenido efecto la llamada a la funcion, True en caso contrario.
 	 */
-	public Boolean añadirProducto(String nombreProducto, Integer cantidad) {
+	public Boolean aÃ±adirProducto(String nombreProducto, Integer cantidad) {
 		Boolean retorno = false;
 		Producto producto = getProducto(nombreProducto);
 		if (producto == null) {
@@ -145,10 +145,10 @@ public class ListaCompra {
 	/**
 	 * Elimina, si existe, un producto de la lista de la compra.
 	 * <p>
-	 * Si el producto no está marcado coo favorito, se elimina de la lista de productos.
+	 * Si el producto no estï¿½ marcado coo favorito, se elimina de la lista de productos.
 	 * 
 	 * @param nombreProducto Nombre del producto a eliminar.
-	 * @return true si ha sido eliminado algún producto de la lista de la compra y false en caso contrario.
+	 * @return true si ha sido eliminado algï¿½n producto de la lista de la compra y false en caso contrario.
 	 */
 	public Boolean eliminarProducto(String nombreProducto) {
 		Boolean retorno = listaCompra.remove(nombreProducto) != null;
@@ -159,9 +159,9 @@ public class ListaCompra {
 
 
 	/**
-	 * Devuelve el número de productos que se almacenan como favoritos.
+	 * Devuelve el nï¿½mero de productos que se almacenan como favoritos.
 	 * 
-	 * @return Número de productos que se almacenan como favoritos.
+	 * @return Nï¿½mero de productos que se almacenan como favoritos.
 	 */
 	public Integer numFavoritos() {
 		return getFavoritos().size();
@@ -181,11 +181,11 @@ public class ListaCompra {
 	}
 
 	/**
-	 * Añade o marca un producto como favorito, sin afectar a la lista de la compra.
+	 * Aï¿½ade o marca un producto como favorito, sin afectar a la lista de la compra.
 	 * 
 	 * @param nombreProducto Nombre del producto.
 	 */
-	public void añadirFavorito(String nombreProducto) {
+	public void aÃ±adirFavorito(String nombreProducto) {
 		Producto producto = listaProductos.getOrDefault(nombreProducto, new Producto(nombreProducto, false));
 		producto.marcarFavorito();
 		listaProductos.put(nombreProducto, producto);

@@ -1,4 +1,4 @@
-package persistencia;
+package modelo.persistencia;
 
 
 import java.io.BufferedReader;
@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import modelo.ListaCompra;
+import modelo.datos.ListaCompra;
 
 public abstract class Persistencia implements IPersistencia {
 

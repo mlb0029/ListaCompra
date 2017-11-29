@@ -1,7 +1,7 @@
-package modelo;
+package modelo.datos;
 
 /**
- * Contiene información relativa a un producto almacenado en la lista de la compra.
+ * Contiene informaciï¿½n relativa a un producto almacenado en la lista de la compra.
  * <p>
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO
@@ -21,7 +21,7 @@ public class LineaProducto {
 	private Integer cantidad;
 	
 	/**
-	 * Variable que indica si el producto está comprado o no.
+	 * Variable que indica si el producto estï¿½ comprado o no.
 	 */
 	private Boolean estaComprado;
 	
@@ -29,11 +29,11 @@ public class LineaProducto {
 	 * Constructor de la clase.
 	 * <p>
 	 * Crea una instancia de la clase asignandole el nombre del producto, la cantidad a comprar y si se 
-	 * va a almacenar el producto como favorito o no. Inicialmente el producto no está comprado.
+	 * va a almacenar el producto como favorito o no. Inicialmente el producto no estï¿½ comprado.
 	 * 
 	 * @paramproducto Producto a almacenar en la lista.
 	 * @param cantidad Cantidad del producto a comprar.
-	 * @param esFavorito Variable que indica si el producto está almacenado como favorito o no.
+	 * @param esFavorito Variable que indica si el producto estï¿½ almacenado como favorito o no.
 	 */
 	LineaProducto(Producto producto, Integer cantidad) {
 		this.producto = producto;
@@ -67,7 +67,7 @@ public class LineaProducto {
 	 * @param cantidad Cantidad de un producto que se desea comprar.
 	 * @return Devuelve true si se ha modificado la cantidad y false en caso contrario.
 	 */
-	public boolean setCantidad(Integer cantidad) {
+	boolean setCantidad(Integer cantidad) {
 		if (cantidad > 0) {
 			this.cantidad = cantidad;
 			return true;
@@ -76,7 +76,7 @@ public class LineaProducto {
 	}
 
 	/**
-	 * Devuelve si el producto está marcado como comprado o no.
+	 * Devuelve si el producto estï¿½ marcado como comprado o no.
 	 * 
 	 * @return Devuelve true si el producto ha sido comprado y false en caso contrario.
 	 */
@@ -88,14 +88,14 @@ public class LineaProducto {
 	/**
 	 * Marca un producto de la lista como comprado.
 	 */
-	public void marcarComprado() {
+	void marcarComprado() {
 		this.estaComprado = true;
 	}
 	
 	/**
 	 * Marca un producto de la lista como no comprado. 
 	 */
-	public void desmarcarComprado() {
+	void desmarcarComprado() {
 		this.estaComprado = false;
 	}
 	

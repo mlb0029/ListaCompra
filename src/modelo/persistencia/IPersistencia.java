@@ -1,8 +1,8 @@
-package persistencia;
-import modelo.ListaCompra;
-
+package modelo.persistencia;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import modelo.datos.ListaCompra;
 
 public interface IPersistencia {
 

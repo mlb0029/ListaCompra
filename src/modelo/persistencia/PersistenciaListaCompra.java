@@ -1,15 +1,16 @@
 /**
  * 
  */
-package persistencia;
+package modelo.persistencia;
 
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Formatter;
 
-import modelo.ListaCompra;
+import modelo.datos.ListaCompra;
+
+import java.util.Formatter;
 
 /**
  * @author MIGUEL ANGEL LEON BARDAVIO
@@ -84,10 +85,10 @@ public class PersistenciaListaCompra implements IPersistencia {
 				line = sc.next().split(";");
 				nombreProducto = line[0];
 				if (line[1].equals("fav"))
-					listaCompra.añadirFavorito(nombreProducto);
+					listaCompra.aÃ±adirFavorito(nombreProducto);
 				cantidad = Integer.parseInt(line[2]);
 				if (cantidad > 0)
-					listaCompra.añadirProducto(nombreProducto, cantidad);
+					listaCompra.aÃ±adirProducto(nombreProducto, cantidad);
 				if (line[3].equals("comprado")) {
 					listaCompra.getLineaProducto(nombreProducto).marcarComprado();
 				}

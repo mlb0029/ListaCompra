@@ -1,4 +1,4 @@
-package persistencia;
+package modelo.persistencia;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import modelo.ListaCompra;
+
+import modelo.datos.ListaCompra;
 
 public class PersistenciaLista extends Persistencia {
 
@@ -64,9 +65,9 @@ public class PersistenciaLista extends Persistencia {
 				Integer cantidad= Integer.parseInt(product[2].split(":")[1]);
 				Boolean comprado= Boolean.parseBoolean(product[3].split(":")[1]);
 
-				listaCompra.añadirProducto(nomProd,cantidad);
+				listaCompra.aÃ±adirProducto(nomProd,cantidad);
 				if (favorito){
-					listaCompra.añadirFavorito(nomProd);
+					listaCompra.aÃ±adirFavorito(nomProd);
 				}
 				if(comprado){
 					listaCompra.getLineaProducto(nomProd).marcarComprado();

@@ -1,7 +1,7 @@
-package modelo;
+package modelo.datos;
 
 /**
- * Almacena información acerca de los productos.
+ * Almacena informaciï¿½n acerca de los productos.
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO
  *
@@ -19,15 +19,15 @@ public class Producto {
 	private String nombre;
 	
 	/**
-	 * Indica si el producto está marcado como favorito o no.
+	 * Indica si el producto estï¿½ marcado como favorito o no.
 	 */
 	private Boolean esFavorito;
 
 	/**
-	 * Instancia la clase según los argumentos que se le pasen.
+	 * Instancia la clase segï¿½n los argumentos que se le pasen.
 	 * 
 	 * @param nombre Nombre del producto.
-	 * @param esFavorito Indica si el producto está marcado como favorito o no.
+	 * @param esFavorito Indica si el producto estï¿½ marcado como favorito o no.
 	 */
 	Producto(String nombre, Boolean esFavorito) {
 		this.nombre = nombre;
@@ -44,7 +44,7 @@ public class Producto {
 	}
 
 	/**
-	 * @return Si está marcado como favorito o no.
+	 * @return Si estï¿½ marcado como favorito o no.
 	 */
 	public Boolean isFavorito() {
 		return esFavorito;
@@ -65,7 +65,7 @@ public class Producto {
 	}
 	
 	/**
-	 * Marca o desmarca el producto como favorito según su estado actual.
+	 * Marca o desmarca el producto como favorito segï¿½n su estado actual.
 	 */
 	void setFavorito() {
 		this.esFavorito = !this.esFavorito;

@@ -13,9 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import modelo.LineaProducto;
-import modelo.ListaCompra;
-import modelo.Producto;
+import modelo.datos.*;
 
 /**
  * @author migue
@@ -44,15 +42,15 @@ public class ListaCompraTest {
 	@Before
 	public void setUp() throws Exception {
 		this.listaCompra = ListaCompra.getInstance();
-		this.listaCompra.añadirProducto("Lechugas", 2);
-		this.listaCompra.añadirProducto("Tomates", 6);
-		this.listaCompra.añadirProducto("Bote de pepinillos", 1);
-		this.listaCompra.añadirProducto("Manzanas", 8);
-		this.listaCompra.añadirProducto("Mandarinas", 10);
-		this.listaCompra.añadirFavorito("Cecina");
-		this.listaCompra.añadirFavorito("Natillas");
-		this.listaCompra.añadirFavorito("Manzanas");
-		this.listaCompra.añadirFavorito("Mandarinas");
+		this.listaCompra.aÃ±adirProducto("Lechugas", 2);
+		this.listaCompra.aÃ±adirProducto("Tomates", 6);
+		this.listaCompra.aÃ±adirProducto("Bote de pepinillos", 1);
+		this.listaCompra.aÃ±adirProducto("Manzanas", 8);
+		this.listaCompra.aÃ±adirProducto("Mandarinas", 10);
+		this.listaCompra.aÃ±adirFavorito("Cecina");
+		this.listaCompra.aÃ±adirFavorito("Natillas");
+		this.listaCompra.aÃ±adirFavorito("Manzanas");
+		this.listaCompra.aÃ±adirFavorito("Mandarinas");
 	}
 
 	/**
@@ -126,24 +124,24 @@ public class ListaCompraTest {
 	}
 
 	/**
-	 * Test method for {@link modelo.ListaCompra#añadirProducto(java.lang.String, java.lang.Integer)}.
+	 * Test method for {@link modelo.ListaCompra#aÃ±adirProducto(java.lang.String, java.lang.Integer)}.
 	 */
 	@Test
-	public final void testAñadirProducto() {
+	public final void testaÃ±adirProducto() {
 		//Caso de fallo
-		assertFalse(this.listaCompra.añadirProducto("Lechugas", 5));
+		assertFalse(this.listaCompra.aÃ±adirProducto("Lechugas", 5));
 		assertEquals(2, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(5, (int)this.listaCompra.size());
 		//Caso de acierto (Meter fav)
-		assertTrue(this.listaCompra.añadirProducto("Cecina", 1));
+		assertTrue(this.listaCompra.aÃ±adirProducto("Cecina", 1));
 		assertEquals(1, (int)this.listaCompra.getLineaProducto("Cecina").getCantidad());
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(6, (int)this.listaCompra.size());
 		//Caso de acierto (Meter nuevo)
-		assertTrue(this.listaCompra.añadirProducto("Galletas", 2));
+		assertTrue(this.listaCompra.aÃ±adirProducto("Galletas", 2));
 		assertEquals(2, (int)this.listaCompra.getLineaProducto("Galletas").getCantidad());
 		assertEquals(8, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
@@ -157,7 +155,7 @@ public class ListaCompraTest {
 	 */
 	@Test
 	public final void gettersProducto() {
-		this.listaCompra.añadirProducto("Galletas", 2);
+		this.listaCompra.aÃ±adirProducto("Galletas", 2);
 		assertEquals(8, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(6, (int)this.listaCompra.size());
@@ -185,7 +183,7 @@ public class ListaCompraTest {
 	 */
 	@Test
 	public final void testProductoIsFavorito() {
-		this.listaCompra.añadirProducto("Galletas", 2);
+		this.listaCompra.aÃ±adirProducto("Galletas", 2);
 		assertEquals(8, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(6, (int)this.listaCompra.size());
@@ -193,7 +191,7 @@ public class ListaCompraTest {
 		assertFalse(this.listaCompra.getProducto("Galletas").isFavorito());
 		assertFalse(this.listaCompra.getListaCompra().get("Galletas").getProducto().isFavorito());
 		assertFalse(this.listaCompra.getListaProductos().get("Galletas").isFavorito());
-		this.listaCompra.añadirFavorito("Galletas");
+		this.listaCompra.aÃ±adirFavorito("Galletas");
 		assertEquals(8, (int)this.listaCompra.numProductos());
 		assertEquals(5, (int)this.listaCompra.numFavoritos());
 		assertEquals(6, (int)this.listaCompra.size());
@@ -213,7 +211,7 @@ public class ListaCompraTest {
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(5, (int)this.listaCompra.size());
-		//Caso de fallo: El producto no está en la lista pero es almacenado como favorito
+		//Caso de fallo: El producto no estï¿½ en la lista pero es almacenado como favorito
 		assertFalse(this.listaCompra.eliminarProducto("Cecina"));
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
@@ -253,19 +251,19 @@ public class ListaCompraTest {
 	}
 
 	/**
-	 * Test method for {@link modelo.ListaCompra#añadirFavorito(java.lang.String)}.
+	 * Test method for {@link modelo.ListaCompra#aÃ±adirFavorito(java.lang.String)}.
 	 */
 	@Test
-	public final void testAñadirFavorito() {
+	public final void testaÃ±adirFavorito() {
 		//Caso de acierto (En lista compra y no favorito)
 		assertFalse(this.listaCompra.getProducto("Lechugas").isFavorito());
-		this.listaCompra.añadirFavorito("Lechugas");
+		this.listaCompra.aÃ±adirFavorito("Lechugas");
 		assertTrue(this.listaCompra.getProducto("Lechugas").isFavorito());
 		assertEquals(5, (int)this.listaCompra.size());
 		assertEquals(5, (int)this.listaCompra.numFavoritos());
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		//Caso de acierto (Nuevo)
-		this.listaCompra.añadirFavorito("Macarrones");
+		this.listaCompra.aÃ±adirFavorito("Macarrones");
 		assertTrue(this.listaCompra.getProducto("Macarrones").isFavorito());
 		assertEquals(8, (int)this.listaCompra.numProductos());
 		assertEquals(6, (int)this.listaCompra.numFavoritos());
@@ -282,17 +280,17 @@ public class ListaCompraTest {
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(5, (int)this.listaCompra.size());
-		//Caso de fallo: Está en la lista de la compra pero no es favorito
+		//Caso de fallo: Estï¿½ en la lista de la compra pero no es favorito
 		assertFalse(this.listaCompra.eliminarFavorito("Lechugas"));
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(4, (int)this.listaCompra.numFavoritos());
 		assertEquals(5, (int)this.listaCompra.size());
-		//Caso de acierto: Está en la lista de la compra y es favorito
+		//Caso de acierto: Estï¿½ en la lista de la compra y es favorito
 		assertTrue(this.listaCompra.eliminarFavorito("Manzanas"));
 		assertEquals(7, (int)this.listaCompra.numProductos());
 		assertEquals(3, (int)this.listaCompra.numFavoritos());
 		assertEquals(5, (int)this.listaCompra.size());
-		//Caso de acierto: No está en la lista de la compra y es favorito
+		//Caso de acierto: No estï¿½ en la lista de la compra y es favorito
 		assertTrue(this.listaCompra.eliminarFavorito("Cecina"));
 		assertEquals(6, (int)this.listaCompra.numProductos());
 		assertEquals(2, (int)this.listaCompra.numFavoritos());
@@ -332,11 +330,11 @@ public class ListaCompraTest {
 		LineaProducto linea = this.listaCompra.getLineaProducto("Lechugas");
 		assertEquals(2, (int)linea.getCantidad());
 		assertEquals(2, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
-		//Caso de acierto: nº positivo
+		//Caso de acierto: nï¿½ positivo
 		linea.setCantidad(5);
 		assertEquals(5, (int)linea.getCantidad());
 		assertEquals(5, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
-		//Caso de fallo: nº negativo
+		//Caso de fallo: nï¿½ negativo
 		assertFalse(linea.setCantidad(-6));
 		assertEquals(5, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
 		//Caso de fallo: 0
