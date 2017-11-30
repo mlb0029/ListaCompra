@@ -8,9 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import modelo.datos.ListaCompra;
+import modelo.datos.*;
 
 import java.util.Formatter;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * @author MIGUEL ANGEL LEON BARDAVIO
@@ -34,23 +36,27 @@ public class PersistenciaListaCompra implements IPersistencia {
 		
 	}
 
-	public void guardarContenido(ListaCompra listaCompra) throws Exception{
+	public void guardarContenido(IListaCompra listaCompra) throws Exception{
 		String isFav = "";
 		String cantidad ="";
 		String estaComprado="";
+		HashSet<String> products = new HashSet<String>(listaCompra.getListaCompra().keySet());
+		products.addAll(listaCompra.getFavoritos());
+		HashMap<String, LineaProducto> liCo = new HashMap<String, LineaProducto>(listaCompra.getListaCompra());
+		HashSet<String> liFav = new HashSet<String>(listaCompra.getFavoritos());
 		Formatter f;
 		
 		try {
 			f = new Formatter(this.fileName);
 			//f.format("%s\n", listaCompra.numProductos().toString());
-			for (String producto : listaCompra.getListaProductos().keySet()) {
-				if (listaCompra.getProducto(producto).isFavorito())
+			for (String producto : products) {
+				if (liFav.contains(producto))
 					isFav = "fav";
 				else
 					isFav = "noFav";
-				if (listaCompra.getListaCompra().containsKey(producto)) {
-					cantidad = listaCompra.getLineaProducto(producto).getCantidad().toString();
-					if (listaCompra.getLineaProducto(producto).getEstaComprado())
+				if (liCo.containsKey(producto)) {
+					cantidad = liCo.get(producto).getCantidad().toString();
+					if (liCo.get(producto).getEstaComprado())
 						estaComprado = "comprado";
 					else
 						estaComprado = "noComprado";
@@ -90,7 +96,7 @@ public class PersistenciaListaCompra implements IPersistencia {
 				if (cantidad > 0)
 					listaCompra.añadirProducto(nombreProducto, cantidad);
 				if (line[3].equals("comprado")) {
-					listaCompra.getLineaProducto(nombreProducto).marcarComprado();
+					listaCompra.marcarComprado(nombreProducto);
 				}
 			}
 			sc.close();

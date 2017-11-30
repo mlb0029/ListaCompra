@@ -331,14 +331,14 @@ public class ListaCompraTest {
 		assertEquals(2, (int)linea.getCantidad());
 		assertEquals(2, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
 		//Caso de acierto: n� positivo
-		linea.setCantidad(5);
+		listaCompra.modificarCantidad("Lechugas", 5);
 		assertEquals(5, (int)linea.getCantidad());
 		assertEquals(5, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
 		//Caso de fallo: n� negativo
-		assertFalse(linea.setCantidad(-6));
+		assertFalse(listaCompra.modificarCantidad("Lechugas", -6));
 		assertEquals(5, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
 		//Caso de fallo: 0
-		assertFalse(linea.setCantidad(0));
+		assertFalse(listaCompra.modificarCantidad("Lechugas", 0));
 		assertEquals(5, (int)this.listaCompra.getLineaProducto("Lechugas").getCantidad());
 	}
 	
@@ -350,7 +350,7 @@ public class ListaCompraTest {
 		LineaProducto linea = this.listaCompra.getLineaProducto("Lechugas");
 		assertFalse(linea.getEstaComprado());
 		assertFalse(this.listaCompra.getLineaProducto("Lechugas").getEstaComprado());
-		linea.marcarComprado();
+		listaCompra.marcarComprado("Lechugas");
 		assertTrue(linea.getEstaComprado());
 		assertTrue(this.listaCompra.getLineaProducto("Lechugas").getEstaComprado());
 	}
@@ -363,10 +363,10 @@ public class ListaCompraTest {
 		LineaProducto linea = this.listaCompra.getLineaProducto("Lechugas");
 		assertFalse(linea.getEstaComprado());
 		assertFalse(this.listaCompra.getLineaProducto("Lechugas").getEstaComprado());
-		linea.marcarComprado();
+		listaCompra.marcarComprado("Lechugas");
 		assertTrue(linea.getEstaComprado());
 		assertTrue(this.listaCompra.getLineaProducto("Lechugas").getEstaComprado());
-		linea.desmarcarComprado();
+		listaCompra.desmarcarComprado("Lechugas");
 		assertFalse(linea.getEstaComprado());
 		assertFalse(this.listaCompra.getLineaProducto("Lechugas").getEstaComprado());
 	}

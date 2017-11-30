@@ -37,9 +37,8 @@ public class LineaProducto {
 	 */
 	LineaProducto(Producto producto, Integer cantidad) {
 		this.producto = producto;
-		this.cantidad = cantidad;
-		this.estaComprado = false;
-		//TODO Comprobar errores en LineaProducto(Producto producto, Integer cantidad)
+		setCantidad(cantidad);
+		desmarcarComprado();
 	}
 
 	/**

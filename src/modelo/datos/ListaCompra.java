@@ -10,8 +10,18 @@ import java.util.HashSet;
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO
  */
-public class ListaCompra {
-	
+/**
+ * @author Miguel Ángel León
+ *
+ */
+/**
+ * @author Miguel Ángel León
+ *
+ */
+public class ListaCompra implements IListaCompra{
+	//***********************************
+	// ATRIBUTOS
+	//***********************************
 	/**
 	 * Permite desarrillar la clase como &lt;&lt;Singleton&gt;&gt;.
 	 */
@@ -27,6 +37,11 @@ public class ListaCompra {
 	 */
 	private HashMap<String, LineaProducto> listaCompra;
 	
+	//***********************************
+	// MÉTODOS
+	//***********************************
+	
+	//Contructor e instancias
 	/**
 	 * Instancia la clase con las listas vacias.
 	 */
@@ -36,9 +51,9 @@ public class ListaCompra {
 	}	
 	
 	/**
-	 * Devuelve la �nica instancia de la clase e instancia la clase si no hay instancia.
+	 * Devuelve la única instancia de la clase e instancia la clase si no hay instancia.
 	 * 
-	 * @return La �nica instancia de la clase
+	 * @return La única instancia de la clase
 	 */
 	public static ListaCompra getInstance() {
 		if (instance == null)
@@ -47,51 +62,49 @@ public class ListaCompra {
 	}
 	
 	/**
-	 * Elimina la �nica instancia de la clase.
+	 * Elimina la única instancia de la clase.
 	 */
 	public static void delInstance() {
 		instance = null;
 	}
 
+	//Tamaños
+	
 	/**
-	 * Devuelve el n�mero de productos que contiene la lista de la compra.
+	 * Devuelve el número de productos que contiene la lista de la compra.
 	 * 
-	 * @return N�mero de productos que contiene la lista de la compra.
+	 * @return Número de productos que contiene la lista de la compra.
 	 */
 	public Integer size() {
 		return listaCompra.size();
 	}
 
 	/**
-	 * Devuelve la lista de la compra.
-	 * <p>
-	 * Devuelve un HashMap&lt;String, LineaProducto&gt;.
-	 * 
-	 * @return Collecci�n que contiene la lista de la compra.
-	 */
-	public HashMap<String, LineaProducto> getListaCompra() {
-		return new HashMap<String, LineaProducto>(listaCompra);
-	}
-	
-	/**
-	 * Devuelve la linea de la lista asociada a un producto.
-	 * 
-	 * @param nombreProducto Nombre del prducto.
-	 * @return Linea de un producto (Producto y cantidad) o null si no existe.
-	 * @see LineaProducto
-	 */
-	public LineaProducto getLineaProducto(String nombreProducto) {
-		return this.listaCompra.getOrDefault(nombreProducto, null);
-	}
-	
-	/**
-	 * Devuelve el n�mero de productos que contiene la lista de la compra m�s los que est�n almacenados como
-	 * favoritos y no est�n en la lista de la compra.
+	 * Devuelve el número de productos que contiene la lista de la compra más los que están almacenados como
+	 * favoritos y no están en la lista de la compra.
 	 * 
 	 * @return N�mero total de productos.
 	 */
 	public Integer numProductos() {
 		return listaProductos.size();
+	}
+
+	/**
+	 * Devuelve el número de productos que se almacenan como favoritos.
+	 * 
+	 * @return Número de productos que se almacenan como favoritos.
+	 */
+	public Integer numFavoritos() {
+		return getFavoritos().size();
+	}
+
+	//Getters 
+	
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#getListaCompra()
+	 */
+	public HashMap<String, LineaProducto> getListaCompra() {
+		return new HashMap<String, LineaProducto>(listaCompra);
 	}
 	
 	/**
@@ -104,25 +117,43 @@ public class ListaCompra {
 	public HashMap<String, Producto> getListaProductos(){
 		return listaProductos;
 	}
+
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#getFavoritos()
+	 */
+	public HashSet<String> getFavoritos(){
+		HashSet<String> retorno = new HashSet<String>();
+		for (Producto producto : listaProductos.values())
+			if (producto.isFavorito())
+				retorno.add(producto.getNombre());
+		return retorno;
+	}
+
+	/**
+	 * Devuelve la linea de la lista asociada a un producto.
+	 * 
+	 * @param nombreProducto Nombre del prducto.
+	 * @return Linea de un producto (Producto y cantidad) o null si no existe.
+	 * @see LineaProducto
+	 */
+	public LineaProducto getLineaProducto(String nombreProducto) {
+		return this.listaCompra.getOrDefault(nombreProducto, null);
+	}
 	
 	/**
 	 * Devuelve un producto dado su nombre.
 	 * 
-	 * @param nombreProducto Nombre del producto del cual se desea obtener informaci�n.
+	 * @param nombreProducto Nombre del producto del cual se desea obtener información.
 	 * @return Producto o null si el producto no existe.
 	 */
 	public Producto getProducto(String nombreProducto) {
 		return listaProductos.getOrDefault(nombreProducto, null);
 	}
-	/**
-	 * A�ade un producto a la lista de la compra.
-	 * <p>
-	 * Si el producto no existe, lo a�ade a la lista de productos como no favorito. Si ya hab�a un producto con
-	 * mismo nombre en la lista de la compra, devuelve false y la funci�n no realiza ning�n cambio.
-	 * 
-	 * @param nombreProducto Nombre del producto a comprar.
-	 * @param cantidad Cantidad del producto a comprar
-	 * @return False si el producto ya exist�a por tanto no ha tenido efecto la llamada a la funcion, True en caso contrario.
+	
+	//Setters
+	
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#añadirProducto(java.lang.String, java.lang.Integer)
 	 */
 	public Boolean añadirProducto(String nombreProducto, Integer cantidad) {
 		Boolean retorno = false;
@@ -142,13 +173,49 @@ public class ListaCompra {
 	}
 
 
-	/**
-	 * Elimina, si existe, un producto de la lista de la compra.
-	 * <p>
-	 * Si el producto no est� marcado coo favorito, se elimina de la lista de productos.
-	 * 
-	 * @param nombreProducto Nombre del producto a eliminar.
-	 * @return true si ha sido eliminado alg�n producto de la lista de la compra y false en caso contrario.
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#modificarCantidad(java.lang.String, java.lang.Integer)
+	 */
+	@Override
+	public Boolean modificarCantidad(String nombreProducto, Integer cantidad) {
+		Boolean retorno = false;
+		LineaProducto liProd = getLineaProducto(nombreProducto);
+		if (liProd != null) {
+			retorno = liProd.setCantidad(cantidad);
+		}
+		return retorno;
+	}
+
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#marcarComprado(java.lang.String)
+	 */
+	@Override
+	public Boolean marcarComprado(String nombreProducto) {
+		Boolean retorno = false;
+		LineaProducto liProd = getLineaProducto(nombreProducto);
+		if (liProd != null) {
+			liProd.marcarComprado();;
+			retorno = true;
+		}
+		return retorno;
+	}
+
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#desmarcarComprado(java.lang.String)
+	 */
+	@Override
+	public Boolean desmarcarComprado(String nombreProducto) {
+		Boolean retorno = false;
+		LineaProducto liProd = getLineaProducto(nombreProducto);
+		if (liProd != null) {
+			liProd.desmarcarComprado();
+			retorno = true;
+		}
+		return retorno;
+	}
+
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#eliminarProducto(java.lang.String)
 	 */
 	public Boolean eliminarProducto(String nombreProducto) {
 		Boolean retorno = listaCompra.remove(nombreProducto) != null;
@@ -158,32 +225,8 @@ public class ListaCompra {
 	}
 
 
-	/**
-	 * Devuelve el n�mero de productos que se almacenan como favoritos.
-	 * 
-	 * @return N�mero de productos que se almacenan como favoritos.
-	 */
-	public Integer numFavoritos() {
-		return getFavoritos().size();
-	}
-
-	/**
-	 * Devuelve los nombres de los productos que se han almacenado como favoritos.
-	 * 
-	 * @return Set con los nombres de los productos que se han almacenado como favoritos.
-	 */
-	public HashSet<String> getFavoritos(){
-		HashSet<String> retorno = new HashSet<String>();
-		for (Producto producto : listaProductos.values())
-			if (producto.isFavorito())
-				retorno.add(producto.getNombre());
-		return retorno;
-	}
-
-	/**
-	 * A�ade o marca un producto como favorito, sin afectar a la lista de la compra.
-	 * 
-	 * @param nombreProducto Nombre del producto.
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#añadirFavorito(java.lang.String)
 	 */
 	public void añadirFavorito(String nombreProducto) {
 		Producto producto = listaProductos.getOrDefault(nombreProducto, new Producto(nombreProducto, false));
@@ -191,13 +234,8 @@ public class ListaCompra {
 		listaProductos.put(nombreProducto, producto);
 	}
 	
-	/**
-	 * Elimina o desmarca un producto como favorito, sin afectar a la lista de la compra.
-	 * <p>
-	 * Si el producto no existe devuelve false.
-	 * 
-	 * @param nombreProducto Nombre del producto desmarcar como favorito.
-	 * @return false si el producto no existe o true en caso contrario
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#eliminarFavorito(java.lang.String)
 	 */
 	public Boolean eliminarFavorito(String nombreProducto) {
 		Producto producto = getProducto(nombreProducto);
@@ -210,8 +248,20 @@ public class ListaCompra {
 		return retorno;
 	}
 
-	/**
-	 * Limpia la lista de favoritos.
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#limpiarListaCompra()
+	 */
+	public void limpiarListaCompra () {
+		for (String producto : getListaCompra().keySet()) {
+			if (!listaProductos.get(producto).isFavorito())
+				listaProductos.remove(producto);
+			listaCompra.remove(producto);
+		}
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#limpiarFavoritos()
 	 */
 	public void limpiarFavoritos () {
 		HashSet<String> favoritos = getFavoritos();
@@ -220,16 +270,5 @@ public class ListaCompra {
 				getProducto(fav).desmarcarFavorito();
 			else
 				listaProductos.remove(fav);
-	} 
-	
-	/**
-	 * Limpia la lista de la compra, sin eliminar los favoritos.
-	 */
-	public void limpiarListaCompra () {
-		for (String producto : getListaCompra().keySet()) {
-			if (!listaProductos.get(producto).isFavorito())
-				listaProductos.remove(producto);
-			listaCompra.remove(producto);
-		}
 	} 
 }

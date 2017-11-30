@@ -1,15 +1,18 @@
 package interfaces;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
-import modelo.datos.ListaCompra;
+import modelo.datos.*;
 import modelo.persistencia.*;
 
 public class InterfazConsola {
 	
 	public static final String fileListaCompra = "listaCompra.txt";
 	
-	public ListaCompra listaCompra;
+	IListaCompra listaCompra;
 	
 	IPersistencia persistencia;
 	
@@ -95,11 +98,8 @@ public class InterfazConsola {
 					producto = teclado.next();
 					System.out.println("Elige Cantidad");
 					cantidad = Integer.parseInt(teclado.next());
-					if(listaCompra.getLineaProducto(producto) != null)
-						if(listaCompra.getLineaProducto(producto).setCantidad(cantidad))
-							System.out.println("Cambiada la cantidad correctamente!");
-						else
-							System.out.println("Sin cambios");
+					if(listaCompra.modificarCantidad(producto, cantidad))
+						System.out.println("Cambiada la cantidad correctamente!");
 					else
 						System.out.println("Sin cambios");
 					break;
@@ -120,8 +120,7 @@ public class InterfazConsola {
 				case 6:
 					System.out.println("Elige producto a marcar como comprado");
 					producto = teclado.next();
-					if(listaCompra.getLineaProducto(producto) != null) {
-						listaCompra.getLineaProducto(producto).marcarComprado();
+					if(listaCompra.marcarComprado(producto)) {
 						System.out.println("Marcado como comprado correctamente!");
 					}else
 						System.out.println("Sin cambios");
@@ -129,31 +128,30 @@ public class InterfazConsola {
 				case 7:
 					System.out.println("Elige producto a desmarcar como comprado");
 					producto = teclado.next();
-					if(listaCompra.getLineaProducto(producto) != null) {
-						listaCompra.getLineaProducto(producto).desmarcarComprado();
+					if(listaCompra.desmarcarComprado(producto)) {
 						System.out.println("Desmarcado como comprado correctamente!");
 					}else
 						System.out.println("Sin cambios");
 					break;
 				case 8:
-					if(listaCompra.size() > 0) {
+					HashMap<String, LineaProducto> liCo = new HashMap<String, LineaProducto>(listaCompra.getListaCompra());
+					if(liCo.size() > 0) {
 						System.out.println("Los productos de su lista de la compra son :\n");
-						for (String prod : listaCompra.getListaCompra().keySet()) {
-							System.out.println(listaCompra.getLineaProducto(prod));
+						for (String prod : liCo.keySet()) {
+							System.out.println(liCo.get(prod));
 						}
 					}else {
 						System.out.println("Lista de la compra vacía");
 					}
 					break;
 				case 9:
-					if(listaCompra.numFavoritos() > 0) {
+					List<String> liFav = new ArrayList<String>(listaCompra.getFavoritos());
+					if(liFav.size() > 0) {
 						System.out.println("Los productos de su lista de favoritos son :\n");
-						for (String prod : listaCompra.getFavoritos()) {
+						for (String prod : liFav)
 							System.out.println(prod);
-						}
-					}else {
+					}else
 						System.out.println("Lista de favoritos vacía");
-					}
 					break;
 				case 10:
 					listaCompra.limpiarListaCompra();

@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import modelo.datos.ListaCompra;
+import modelo.datos.*;
 
 public abstract class Persistencia implements IPersistencia {
 
@@ -28,7 +28,7 @@ public abstract class Persistencia implements IPersistencia {
 	}
 
 	@Override
-	public abstract void guardarContenido(ListaCompra lista);
+	public abstract void guardarContenido(IListaCompra lista);
 
 	@Override
 	public abstract ListaCompra cargarCont();

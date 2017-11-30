@@ -107,4 +107,14 @@ public interface IListaCompra {
 	 * @return Productos favoritos.
 	 */
 	public Collection<String> getFavoritos();
+	
+	/**
+	 * Limpia la lista de la compra, sin eliminar los favoritos.
+	 */
+	public void limpiarListaCompra ();
+
+	/**
+	 * Limpia la lista de favoritos.
+	 */
+	public void limpiarFavoritos ();
 }

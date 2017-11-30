@@ -8,11 +8,6 @@ package modelo.datos;
  */
 public class Producto {
 	
-	@Override
-	public String toString() {
-		return  nombre + ", Es Favorito:" + esFavorito;
-	}
-
 	/**
 	 * Nombre del producto.
 	 */
@@ -69,6 +64,11 @@ public class Producto {
 	 */
 	void setFavorito() {
 		this.esFavorito = !this.esFavorito;
+	}
+
+	@Override
+	public String toString() {
+		return  nombre + ", Es Favorito:" + esFavorito;
 	}
 	
 }

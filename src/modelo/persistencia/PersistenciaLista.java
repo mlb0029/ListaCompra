@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import modelo.datos.IListaCompra;
 import modelo.datos.ListaCompra;
 
 public class PersistenciaLista extends Persistencia {
@@ -17,7 +18,7 @@ public class PersistenciaLista extends Persistencia {
 	}
 
 	@Override
-	public void guardarContenido(ListaCompra lista) {
+	public void guardarContenido(IListaCompra lista) {
 	
 		PrintWriter pw = null;
 		FileOutputStream fo = null;
@@ -27,7 +28,7 @@ public class PersistenciaLista extends Persistencia {
 			pw = new PrintWriter(new FileOutputStream(file), true);
 			fo = new FileOutputStream(file);
 			for (String p : lista.getListaCompra().keySet()) {
-				pw.write(lista.getLineaProducto(p).toString());
+				pw.write(lista.getListaCompra().get(p).toString());
 			}
 
 		} catch (IOException e) {
@@ -70,7 +71,7 @@ public class PersistenciaLista extends Persistencia {
 					listaCompra.añadirFavorito(nomProd);
 				}
 				if(comprado){
-					listaCompra.getLineaProducto(nomProd).marcarComprado();
+					listaCompra.marcarComprado(nomProd);
 				}
 				
 			}
