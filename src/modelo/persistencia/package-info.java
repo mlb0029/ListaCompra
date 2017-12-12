@@ -1,9 +1,8 @@
 /**
- * Contiene clases e interfaces que permitir�n almacenar los datos del programa en ficheros 
+ * Contiene clases e interfaces que permiten almacenar los datos del programa en ficheros 
  * persistentes.
  * <p>
  * 
- * @author MIGUEL ANGEL LEON BARDAVIO
- *
+ * @author CLARA PALACIOS RODRIGO
  */
 package modelo.persistencia;

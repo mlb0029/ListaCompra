@@ -11,12 +11,28 @@ import java.io.PrintWriter;
 import modelo.datos.IListaCompra;
 import modelo.datos.ListaCompra;
 
-public class PersistenciaLista extends Persistencia {
+/**
+ * Forma de almacenar los datos en el fichero.
+ * <p>
+ * Completa la implementación de la interfaz que implementa la clase Persistencia.
+ * 
+ * @author CLARA PALACIOS RODRIGO
+ * @see Persistencia
+ * @see IPersistencia
+ */
+public class PersistenciaLista extends Persistencia implements IPersistencia{
 
-	public PersistenciaLista(String fileListaCompra) {
-		super(fileListaCompra);
+	/**
+	 * Constructor de la clase.
+	 * 
+	 */
+	public PersistenciaLista() {
+		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see modelo.persistencia.IPersistencia#guardarContenido(modelo.datos.IListaCompra)
+	 */
 	@Override
 	public void guardarContenido(IListaCompra lista) {
 	
@@ -24,7 +40,7 @@ public class PersistenciaLista extends Persistencia {
 		FileOutputStream fo = null;
 		File file = null;
 		try {
-			file = new File(this.file);
+			file = new File(this.fileListaCompra);
 			pw = new PrintWriter(new FileOutputStream(file), true);
 			fo = new FileOutputStream(file);
 			for (String p : lista.getListaCompra().keySet()) {
@@ -44,9 +60,12 @@ public class PersistenciaLista extends Persistencia {
 		}
 	};
 
+	/* (non-Javadoc)
+	 * @see modelo.persistencia.IPersistencia#cargarCont()
+	 */
 	@Override
 	public ListaCompra cargarCont() {
-		String csvFile = this.file;
+		String csvFile = this.fileListaCompra;
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
@@ -66,12 +85,12 @@ public class PersistenciaLista extends Persistencia {
 				Integer cantidad= Integer.parseInt(product[2].split(":")[1]);
 				Boolean comprado= Boolean.parseBoolean(product[3].split(":")[1]);
 
-				listaCompra.añadirProducto(nomProd,cantidad);
+				listaCompra.anadirProducto(nomProd,cantidad);
 				if (favorito){
-					listaCompra.añadirFavorito(nomProd);
+					listaCompra.anadirFavorito(nomProd);
 				}
 				if(comprado){
-					listaCompra.marcarComprado(nomProd);
+					listaCompra.setComprado(nomProd, true);
 				}
 				
 			}
@@ -88,10 +107,6 @@ public class PersistenciaLista extends Persistencia {
 				}
 			}
 		}
-		
 		return listaCompra;
 	}
-
-
-
 }

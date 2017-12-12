@@ -1,5 +1,5 @@
 /**
- * Contiene clases necesarias para la ejecución del software.
+ * Contiene clases necesarias para la ejecuciÃ³n del software.
  * <p>
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package modelo.persistencia;
 
 
@@ -15,28 +12,29 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
+ * Forma de trabajar con los ficheros de datos de la aplicación.
+ * <p>
+ * Hereda de Persistencia y termina de implementar IPersistencia.
+ * 
  * @author MIGUEL ANGEL LEON BARDAVIO
- *
+ * @see Persistencia
+ * @see IPersistencia
  */
-public class PersistenciaListaCompra implements IPersistencia {
+public class PersistenciaListaCompra extends Persistencia implements IPersistencia{
 
-	String fileName;
+
+	/**
+	 * Constructor de la clase.
+	 */
+	public PersistenciaListaCompra() {
+		super();
+	}
 	
-	public PersistenciaListaCompra(String fileListaCompra) {
-		fileName = fileListaCompra;
-	}
-
+	/* (non-Javadoc)
+	 * @see modelo.persistencia.IPersistencia#guardarContenido(modelo.datos.IListaCompra)
+	 */
 	@Override
-	public void muestraContenido() throws FileNotFoundException {
-	  File x = new File("C:\\sololearn\\test.txt");
-	  Scanner sc = new Scanner(x);
-	  while(sc.hasNext())
-		  System.out.println(sc.next());
-	  sc.close();
-		
-	}
-
-	public void guardarContenido(IListaCompra listaCompra) throws Exception{
+	public void guardarContenido(IListaCompra listaCompra){
 		String isFav = "";
 		String cantidad ="";
 		String estaComprado="";
@@ -47,7 +45,7 @@ public class PersistenciaListaCompra implements IPersistencia {
 		Formatter f;
 		
 		try {
-			f = new Formatter(this.fileName);
+			f = new Formatter(this.fileListaCompra);
 			//f.format("%s\n", listaCompra.numProductos().toString());
 			for (String producto : products) {
 				if (liFav.contains(producto))
@@ -74,10 +72,13 @@ public class PersistenciaListaCompra implements IPersistencia {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see modelo.persistencia.IPersistencia#cargarCont()
+	 */
 	@Override
 	public ListaCompra cargarCont() throws Exception {
-		ListaCompra.delInstance();
 		ListaCompra listaCompra = ListaCompra.getInstance();
+		listaCompra.clearAll();
 		File file;
 		Scanner sc;
 		String[] line;
@@ -85,18 +86,18 @@ public class PersistenciaListaCompra implements IPersistencia {
 		Integer cantidad;
 		
 		try {
-			file = new File(this.fileName);
+			file = new File(this.fileListaCompra);
 			sc = new Scanner(file);
 			while (sc.hasNext()) {
 				line = sc.next().split(";");
 				nombreProducto = line[0];
 				if (line[1].equals("fav"))
-					listaCompra.añadirFavorito(nombreProducto);
+					listaCompra.anadirFavorito(nombreProducto);
 				cantidad = Integer.parseInt(line[2]);
 				if (cantidad > 0)
-					listaCompra.añadirProducto(nombreProducto, cantidad);
+					listaCompra.anadirProducto(nombreProducto, cantidad);
 				if (line[3].equals("comprado")) {
-					listaCompra.marcarComprado(nombreProducto);
+					listaCompra.setComprado(nombreProducto, true);
 				}
 			}
 			sc.close();
@@ -107,5 +108,4 @@ public class PersistenciaListaCompra implements IPersistencia {
 		}
 		return listaCompra;
 	}
-
 }

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"modelo"}]
+packageSearchIndex = [{"l":"modelo.datos"}]

@@ -1,5 +1,5 @@
 /**
- * Contiene las entructuras de datos que almacenar�n la informaci�n mientras se ejecuta el programa.
+ * Contiene las entructuras de datos que almacenan la información mientras se ejecuta el programa.
  * <p>
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO

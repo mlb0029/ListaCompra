@@ -16,16 +16,16 @@ public interface IListaCompra {
 	/**
 	 * Añade un producto a la lista de la compra.
 	 * <p>
-	 * Inicialmente no favorito, para almacenarlo como favorito usar "añadirFavorito(String)".
+	 * Inicialmente no favorito, para almacenarlo como favorito usar "anadirFavorito(String)".
 	 * Se lleva la lista de la compra y la de favoritos independientemente.
 	 * Si el producto está en la lista de la compra, no se efectúan cambios y se devuelve false.
 	 * 
 	 * @param nombreProducto Nombre del producto a comprar.
 	 * @param cantidad Cantidad del producto a comprar.
 	 * @return True si se ha añadido, False en caso contario.
-	 * @see IListaCompra#añadirFavorito(String)
+	 * @see IListaCompra#anadirFavorito(String)
 	 */
-	public Boolean añadirProducto(String nombreProducto, Integer cantidad);
+	public Boolean anadirProducto(String nombreProducto, Integer cantidad);
 	
 	/**
 	 * Elimina un producto de la lista de la compra.
@@ -59,7 +59,7 @@ public interface IListaCompra {
 	 * 
 	 * @param nombreProducto Nombre del producto a marcar como favorito.
 	 */
-	public void añadirFavorito(String nombreProducto);
+	public void anadirFavorito(String nombreProducto);
 	
 	/**
 	 * Elimina o desmarca un producto como favorito.
@@ -72,21 +72,14 @@ public interface IListaCompra {
 	public Boolean eliminarFavorito(String nombreProducto);
 	
 	/**
-	 * Marca un producto como comprado.
+	 * Marca o desmarca un producto como comprado.
 	 * 
-	 * @param nombreProducto Nombre del producto a marcar como comprado.
-	 * @return True si se ha hecho correctamente, false si el producto no existe.
+	 * @param nombreProducto Nombre del producto a marcar/desmarcar como comprado.
+	 * @param esComprado Ha sido comprado o no?
+	 * @return True si se ha realizado la operación, false si el producto no existe.
 	 */
-	public Boolean marcarComprado(String nombreProducto);
-	
-	/**
-	 * Desmarca un producto como comprado.
-	 * 
-	 * @param nombreProducto Nombre del producto a desmarcar como comprado.
-	 * @return True si se ha hecho correctamente, false si el producto no existe.
-	 */
-	public Boolean desmarcarComprado(String nombreProducto);
-	
+	Boolean setComprado(String nombreProducto, Boolean esComprado);
+
 	
 	/**
 	 * Devuelve la lista de la compra en una estructura "Map".
@@ -117,4 +110,9 @@ public interface IListaCompra {
 	 * Limpia la lista de favoritos.
 	 */
 	public void limpiarFavoritos ();
+	
+	/**
+	 * Vacía tanto la lista de la compra como la de favoritos.
+	 */
+	public void clearAll ();
 }

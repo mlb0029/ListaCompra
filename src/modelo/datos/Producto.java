@@ -44,26 +44,12 @@ public class Producto {
 	public Boolean isFavorito() {
 		return esFavorito;
 	}
-
-	/**
-	 * Marca el producto como favorito.
-	 */
-	void marcarFavorito() {
-		this.esFavorito = true;
-	}
 	
 	/**
-	 * Marca el producto como favorito.
+	 * @param esFavorito the esFavorito to set
 	 */
-	void desmarcarFavorito() {
-		this.esFavorito = false;
-	}
-	
-	/**
-	 * Marca o desmarca el producto como favorito seg�n su estado actual.
-	 */
-	void setFavorito() {
-		this.esFavorito = !this.esFavorito;
+	public void setEsFavorito(Boolean esFavorito) {
+		this.esFavorito = esFavorito;
 	}
 
 	@Override

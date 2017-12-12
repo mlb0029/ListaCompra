@@ -3,23 +3,14 @@ package aplicacion;
 import interfaces.InterfazConsola;
 
 /**
- * Clase Aplicación.
- * <p>
- * Clase donde tiene lugar la función main.
+ * Clase donde tiene lugar la funciÃ³n main.
  * 
- * @author MIGUEL ANGEL LEON BARDAVIO
- *
- *
+ * @author CLARA PALACIOS RODRIGO
  */
 public class Aplicacion {
 
 	/**
-	 * Nombre del fichero dónde se almacenan los datos.
-	 */
-	public static final String fileListaCompra = "listaCompra.txt";
-
-	/**
-	 * Función main.
+	 * FunciÃ³n main.
 	 * 
 	 * @param args Argumentos
 	 */

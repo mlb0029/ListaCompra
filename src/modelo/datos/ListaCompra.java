@@ -11,11 +11,7 @@ import java.util.HashSet;
  * @author MIGUEL ANGEL LEON BARDAVIO
  */
 /**
- * @author Miguel Ángel León
- *
- */
-/**
- * @author Miguel Ángel León
+ * @author MIGUEL ANGEL LEON BARDAVIO
  *
  */
 public class ListaCompra implements IListaCompra{
@@ -61,13 +57,6 @@ public class ListaCompra implements IListaCompra{
 		return instance;
 	}
 	
-	/**
-	 * Elimina la única instancia de la clase.
-	 */
-	public static void delInstance() {
-		instance = null;
-	}
-
 	//Tamaños
 	
 	/**
@@ -153,9 +142,9 @@ public class ListaCompra implements IListaCompra{
 	//Setters
 	
 	/* (non-Javadoc)
-	 * @see modelo.datos.IListaCompra#añadirProducto(java.lang.String, java.lang.Integer)
+	 * @see modelo.datos.IListaCompra#anadirProducto(java.lang.String, java.lang.Integer)
 	 */
-	public Boolean añadirProducto(String nombreProducto, Integer cantidad) {
+	public Boolean anadirProducto(String nombreProducto, Integer cantidad) {
 		Boolean retorno = false;
 		Producto producto = getProducto(nombreProducto);
 		if (producto == null) {
@@ -190,25 +179,11 @@ public class ListaCompra implements IListaCompra{
 	 * @see modelo.datos.IListaCompra#marcarComprado(java.lang.String)
 	 */
 	@Override
-	public Boolean marcarComprado(String nombreProducto) {
+	public Boolean setComprado(String nombreProducto, Boolean esComprado) {
 		Boolean retorno = false;
 		LineaProducto liProd = getLineaProducto(nombreProducto);
 		if (liProd != null) {
-			liProd.marcarComprado();;
-			retorno = true;
-		}
-		return retorno;
-	}
-
-	/* (non-Javadoc)
-	 * @see modelo.datos.IListaCompra#desmarcarComprado(java.lang.String)
-	 */
-	@Override
-	public Boolean desmarcarComprado(String nombreProducto) {
-		Boolean retorno = false;
-		LineaProducto liProd = getLineaProducto(nombreProducto);
-		if (liProd != null) {
-			liProd.desmarcarComprado();
+			liProd.setEstaComprado(esComprado);
 			retorno = true;
 		}
 		return retorno;
@@ -226,11 +201,11 @@ public class ListaCompra implements IListaCompra{
 
 
 	/* (non-Javadoc)
-	 * @see modelo.datos.IListaCompra#añadirFavorito(java.lang.String)
+	 * @see modelo.datos.IListaCompra#anadirFavorito(java.lang.String)
 	 */
-	public void añadirFavorito(String nombreProducto) {
+	public void anadirFavorito(String nombreProducto) {
 		Producto producto = listaProductos.getOrDefault(nombreProducto, new Producto(nombreProducto, false));
-		producto.marcarFavorito();
+		producto.setEsFavorito(true);
 		listaProductos.put(nombreProducto, producto);
 	}
 	
@@ -242,7 +217,7 @@ public class ListaCompra implements IListaCompra{
 		Boolean retorno = producto != null && producto.isFavorito();
 		if (retorno)
 			if (listaCompra.containsKey(nombreProducto))
-				producto.desmarcarFavorito();
+				producto.setEsFavorito(false);
 			else
 				listaProductos.remove(nombreProducto);
 		return retorno;
@@ -267,8 +242,17 @@ public class ListaCompra implements IListaCompra{
 		HashSet<String> favoritos = getFavoritos();
 		for (String fav : favoritos)
 			if (listaCompra.containsKey(fav))
-				getProducto(fav).desmarcarFavorito();
+				getProducto(fav).setEsFavorito(false);
 			else
 				listaProductos.remove(fav);
-	} 
+	}
+
+	/* (non-Javadoc)
+	 * @see modelo.datos.IListaCompra#clearAll()
+	 */
+	@Override
+	public void clearAll() {
+		this.limpiarListaCompra();
+		this.limpiarFavoritos();
+	}
 }

@@ -8,9 +8,13 @@ import java.util.Scanner;
 import modelo.datos.*;
 import modelo.persistencia.*;
 
+/**
+ * Interfaz de usuario: modo texto.
+ * 
+ * @author CLARA PALACIOS RODRIGO
+ *
+ */
 public class InterfazConsola {
-	
-	public static final String fileListaCompra = "listaCompra.txt";
 	
 	IListaCompra listaCompra;
 	
@@ -18,7 +22,7 @@ public class InterfazConsola {
 	
 	public InterfazConsola() {
 		listaCompra = ListaCompra.getInstance();
-		persistencia = new PersistenciaListaCompra(fileListaCompra);
+		persistencia = new PersistenciaListaCompra();
 		try {
 			listaCompra = persistencia.cargarCont();
 		} catch (Exception e) {
@@ -79,7 +83,7 @@ public class InterfazConsola {
 					String producto = teclado.next();
 					System.out.println("Cantidad:");
 					Integer cantidad = Integer.parseInt(teclado.next());
-					if(listaCompra.añadirProducto(producto, cantidad))
+					if(listaCompra.anadirProducto(producto, cantidad))
 						System.out.println("Añadido correctamente!");
 					else
 						System.out.println("Sin cambios");
@@ -106,7 +110,7 @@ public class InterfazConsola {
 				case 4:
 					System.out.println("Elige producto de la lista de la compra o uno nuevo");
 					producto = teclado.next();
-					listaCompra.añadirFavorito(producto);
+					listaCompra.anadirFavorito(producto);
 					System.out.println("Almacenado como favorito correctamente!");
 					break;
 				case 5:
@@ -120,7 +124,7 @@ public class InterfazConsola {
 				case 6:
 					System.out.println("Elige producto a marcar como comprado");
 					producto = teclado.next();
-					if(listaCompra.marcarComprado(producto)) {
+					if(listaCompra.setComprado(producto, true)) {
 						System.out.println("Marcado como comprado correctamente!");
 					}else
 						System.out.println("Sin cambios");
@@ -128,7 +132,7 @@ public class InterfazConsola {
 				case 7:
 					System.out.println("Elige producto a desmarcar como comprado");
 					producto = teclado.next();
-					if(listaCompra.desmarcarComprado(producto)) {
+					if(listaCompra.setComprado(producto, false)) {
 						System.out.println("Desmarcado como comprado correctamente!");
 					}else
 						System.out.println("Sin cambios");
@@ -169,6 +173,7 @@ public class InterfazConsola {
 					} catch (Exception e) {
 						System.out.println("Error inesperado");
 					}
+					System.out.println("Datos almacenados correctamente...");
 					break;
 				case 13:
 					System.out.println("Se estan cargando los datos...");
@@ -177,6 +182,7 @@ public class InterfazConsola {
 					} catch (Exception e) {
 						System.out.println("Error inesperado");
 					}
+					System.out.println("Datos cargados!...");
 					break;
 					
 				default:

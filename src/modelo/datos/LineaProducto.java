@@ -1,7 +1,7 @@
 package modelo.datos;
 
 /**
- * Contiene informaci�n relativa a un producto almacenado en la lista de la compra.
+ * Contiene información relativa a un producto almacenado en la lista de la compra.
  * <p>
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO
@@ -21,15 +21,15 @@ public class LineaProducto {
 	private Integer cantidad;
 	
 	/**
-	 * Variable que indica si el producto est� comprado o no.
+	 * Variable que indica si el producto está comprado o no.
 	 */
 	private Boolean estaComprado;
 	
 	/**
 	 * Constructor de la clase.
 	 * <p>
-	 * Crea una instancia de la clase asignandole el nombre del producto, la cantidad a comprar y si se 
-	 * va a almacenar el producto como favorito o no. Inicialmente el producto no est� comprado.
+	 * Crea una instancia de la clase asignandole el nombre del producto, la cantidad a comprar. 
+	 * Inicialmente el producto no está comprado.
 	 * 
 	 * @paramproducto Producto a almacenar en la lista.
 	 * @param cantidad Cantidad del producto a comprar.
@@ -37,8 +37,8 @@ public class LineaProducto {
 	 */
 	LineaProducto(Producto producto, Integer cantidad) {
 		this.producto = producto;
-		setCantidad(cantidad);
-		desmarcarComprado();
+		this.cantidad = cantidad;
+		this.estaComprado = false;
 	}
 
 	/**
@@ -82,23 +82,14 @@ public class LineaProducto {
 	public Boolean getEstaComprado() {
 		return estaComprado;
 	}
+	
+	/**
+	 * @param estaComprado the estaComprado to set
+	 */
+	public void setEstaComprado(Boolean estaComprado) {
+		this.estaComprado = estaComprado;
+	}
 
-	
-	/**
-	 * Marca un producto de la lista como comprado.
-	 */
-	void marcarComprado() {
-		this.estaComprado = true;
-	}
-	
-	/**
-	 * Marca un producto de la lista como no comprado. 
-	 */
-	void desmarcarComprado() {
-		this.estaComprado = false;
-	}
-	
-	
 	/**
 	 * Convierte a string.
 	 * 
