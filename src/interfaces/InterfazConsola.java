@@ -15,11 +15,11 @@ import modelo.persistencia.*;
  *
  */
 public class InterfazConsola {
-	
+
 	IListaCompra listaCompra;
-	
+
 	IPersistencia persistencia;
-	
+
 	public InterfazConsola() {
 		listaCompra = ListaCompra.getInstance();
 		persistencia = new PersistenciaListaCompra();
@@ -28,7 +28,35 @@ public class InterfazConsola {
 		} catch (Exception e) {
 			System.out.println("Error al cargar datos");
 		}
-		
+
+	}
+
+	public Integer pedirNumero(Scanner teclado) {
+		Integer numero = 1;
+		System.out.println("Cantidad:");
+		numero = Integer.parseInt(teclado.next());
+		return numero;
+	}
+
+	public void muestraListaCompra(HashMap<String, LineaProducto> liCo) {
+		if (liCo.size() > 0) {
+			System.out.println("Los productos de su lista de la compra son :\n");
+			for (String prod : liCo.keySet()) {
+				System.out.println(liCo.get(prod));
+			}
+		} else {
+			System.out.println("Lista de la compra vacía");
+		}
+	}
+
+	public void muestraListaFavoritos(List<String> liFav) {
+		if (liFav.size() > 0) {
+			System.out.println("Los productos de su lista de favoritos son :\n");
+			for (String prod : liFav)
+				System.out.println(prod);
+		} else
+			System.out.println("Lista de favoritos vacía");
+
 	}
 
 	public void muestraMenu() {
@@ -38,7 +66,7 @@ public class InterfazConsola {
 		System.out.println("Elige una opcion: ");
 
 	}
-	
+
 	public void muestraEnunciado() {
 		System.out.println("00-  Salir");// ++
 		System.out.println("01-  Añadir producto");// ++
@@ -55,23 +83,24 @@ public class InterfazConsola {
 		System.out.println("12-  Guardar datos");// ++
 		System.out.println("13-  Cargar datos");// ++
 	}
+
 	public void muestraOpciones() {
 		muestraEnunciado();
 		eligeOpcion();
 	}
 
 	public void eligeOpcion() {
-		
+
 		Scanner teclado = new Scanner(System.in);
 		Integer opcion = -1;
-		
+
 		try {
 			while (opcion != 0) {
-				try{
-				opcion = teclado.nextInt();
-				}catch(Exception e){
+				try {
+					opcion = teclado.nextInt();
+				} catch (Exception e) {
 					System.out.println("Introduce un numero");
-					opcion=0;
+					opcion = 0;
 					muestraOpciones();
 
 				}
@@ -79,11 +108,10 @@ public class InterfazConsola {
 				case 0:
 					break;
 				case 1:
-					System.out.println("Nombre del nuevo producto:");
+					System.out.println("Elige nombre de producto:");
 					String producto = teclado.next();
-					System.out.println("Cantidad:");
-					Integer cantidad = Integer.parseInt(teclado.next());
-					if(listaCompra.anadirProducto(producto, cantidad))
+					Integer cantidad = pedirNumero(teclado);
+					if (listaCompra.anadirProducto(producto, cantidad))
 						System.out.println("Añadido correctamente!");
 					else
 						System.out.println("Sin cambios");
@@ -92,7 +120,7 @@ public class InterfazConsola {
 				case 2:
 					System.out.println("Elige producto a eliminar");
 					producto = teclado.next();
-					if(listaCompra.eliminarProducto(producto))
+					if (listaCompra.eliminarProducto(producto))
 						System.out.println("Eliminado correctamente!");
 					else
 						System.out.println("Sin cambios");
@@ -100,9 +128,8 @@ public class InterfazConsola {
 				case 3:
 					System.out.println("Elige producto a modificar cantidad");
 					producto = teclado.next();
-					System.out.println("Elige Cantidad");
-					cantidad = Integer.parseInt(teclado.next());
-					if(listaCompra.modificarCantidad(producto, cantidad))
+					cantidad = pedirNumero(teclado);
+					if (listaCompra.modificarCantidad(producto, cantidad))
 						System.out.println("Cambiada la cantidad correctamente!");
 					else
 						System.out.println("Sin cambios");
@@ -116,7 +143,7 @@ public class InterfazConsola {
 				case 5:
 					System.out.println("Elige producto a desmarcar como favorito");
 					producto = teclado.next();
-					if(listaCompra.eliminarFavorito(producto)) {
+					if (listaCompra.eliminarFavorito(producto)) {
 						System.out.println("Eliminado de favoritos correctamente!");
 					} else
 						System.out.println("Sin cambios");
@@ -124,38 +151,27 @@ public class InterfazConsola {
 				case 6:
 					System.out.println("Elige producto a marcar como comprado");
 					producto = teclado.next();
-					if(listaCompra.setComprado(producto, true)) {
+					if (listaCompra.setComprado(producto, true)) {
 						System.out.println("Marcado como comprado correctamente!");
-					}else
+					} else
 						System.out.println("Sin cambios");
 					break;
 				case 7:
 					System.out.println("Elige producto a desmarcar como comprado");
 					producto = teclado.next();
-					if(listaCompra.setComprado(producto, false)) {
+					if (listaCompra.setComprado(producto, false)) {
 						System.out.println("Desmarcado como comprado correctamente!");
-					}else
+					} else
 						System.out.println("Sin cambios");
 					break;
 				case 8:
-					HashMap<String, LineaProducto> liCo = new HashMap<String, LineaProducto>(listaCompra.getListaCompra());
-					if(liCo.size() > 0) {
-						System.out.println("Los productos de su lista de la compra son :\n");
-						for (String prod : liCo.keySet()) {
-							System.out.println(liCo.get(prod));
-						}
-					}else {
-						System.out.println("Lista de la compra vacía");
-					}
+					HashMap<String, LineaProducto> liCo = new HashMap<String, LineaProducto>(
+							listaCompra.getListaCompra());
+					muestraListaCompra(liCo);
 					break;
 				case 9:
 					List<String> liFav = new ArrayList<String>(listaCompra.getFavoritos());
-					if(liFav.size() > 0) {
-						System.out.println("Los productos de su lista de favoritos son :\n");
-						for (String prod : liFav)
-							System.out.println(prod);
-					}else
-						System.out.println("Lista de favoritos vacía");
+					muestraListaFavoritos(liFav);
 					break;
 				case 10:
 					listaCompra.limpiarListaCompra();
@@ -184,7 +200,7 @@ public class InterfazConsola {
 					}
 					System.out.println("Datos cargados!...");
 					break;
-					
+
 				default:
 
 					break;

@@ -48,13 +48,15 @@ public class InterfazGrafica extends Application {
 		Spinner<Integer> form2_Amount =  new Spinner<Integer>(1, Integer.MAX_VALUE, 1);
 		form2_Amount.setEditable(true);
 		form2_Amount.setPrefWidth(100.0);
+
+
 		CheckBox form3_SetComprado = new CheckBox("Comprado");
 		CheckBox form4_SetFavorito = new CheckBox("Favorito");
 		textForm.getChildren().addAll(form1_ProductName, form2_Amount, form3_SetComprado, form4_SetFavorito);
 
 		// botones
 		HBox buttons = new HBox();
-		buttons.setPadding(new Insets(10.0, 5.0, 10.0, 10.0));
+		buttons.setPadding(new Insets(10.0, 60.0, 10.0, 50.0));
 		buttons.setAlignment(Pos.CENTER_RIGHT);
 		Button submitButton = new Button("Capturar");
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new TextGrabButtonListener(form1_ProductName));
