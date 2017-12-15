@@ -34,7 +34,7 @@ public class PersistenciaListaCompra extends Persistencia implements IPersistenc
 	 * @see modelo.persistencia.IPersistencia#guardarContenido(modelo.datos.IListaCompra)
 	 */
 	@Override
-	public void guardarContenido(IListaCompra listaCompra){
+	public void guardarContenido(ListaCompra listaCompra){
 		String isFav = "";
 		String cantidad ="";
 		String estaComprado="";

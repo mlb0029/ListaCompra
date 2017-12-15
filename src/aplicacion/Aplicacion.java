@@ -1,6 +1,6 @@
 package aplicacion;
 
-import interfaces.InterfazConsola;
+import interfaces.tUI.InterfazConsola;
 
 /**
  * Clase donde tiene lugar la función main.

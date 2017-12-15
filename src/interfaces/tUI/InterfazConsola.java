@@ -1,4 +1,4 @@
-package interfaces;
+package interfaces.tUI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import modelo.persistencia.*;
  */
 public class InterfazConsola {
 
-	IListaCompra listaCompra;
+	ListaCompra listaCompra;
 
 	IPersistencia persistencia;
 

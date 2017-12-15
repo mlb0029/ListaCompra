@@ -1,7 +1,7 @@
 Mandarinas;fav;10;noComprado
 Lechuga;noFav;2;noComprado
 Tomate;noFav;6;noComprado
-Cecina;fav;0;noComprado
 Pepinillos;noFav;1;noComprado
+Cecina;fav;0;noComprado
 Natillas;fav;0;noComprado
 Manzanas;fav;10;comprado

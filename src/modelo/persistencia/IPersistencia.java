@@ -26,7 +26,7 @@ public interface IPersistencia {
 	 * @param listaCompra Datos creados por la aplicación.
 	 * @throws Exception
 	 */
-	public abstract void guardarContenido(IListaCompra listaCompra) throws Exception;
+	public abstract void guardarContenido(ListaCompra listaCompra) throws Exception;
 
 	/**
 	 * Carga los datos de un fichero en la aplicación.

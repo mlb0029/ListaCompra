@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import modelo.datos.IListaCompra;
 import modelo.datos.ListaCompra;
 
 /**
@@ -34,7 +33,7 @@ public class PersistenciaLista extends Persistencia implements IPersistencia{
 	 * @see modelo.persistencia.IPersistencia#guardarContenido(modelo.datos.IListaCompra)
 	 */
 	@Override
-	public void guardarContenido(IListaCompra lista) {
+	public void guardarContenido(ListaCompra lista) {
 	
 		PrintWriter pw = null;
 		FileOutputStream fo = null;
