@@ -9,15 +9,28 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 
+/**
+ * Interfaz gráfica de la aplicación.
+ * 
+ * @author CLARA PALACIOS RODRIGO
+ *
+ */
 public class InterfazGrafica extends Application {
-	private Stage primaryStage = null;
+	
+	/**
+	 * Escenario principal.
+	 */
+	private Stage mainStage = null;
 
+	/**
+	 * Método de inicialización.
+	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Lista  de la Compra");
-		this.primaryStage.setScene(setupMainScene());
-		this.primaryStage.show();
+	public void start(Stage mainStage) throws Exception {
+		this.mainStage = mainStage;
+		this.mainStage.setTitle("Lista  de la Compra");
+		this.mainStage.setScene(setupMainScene());
+		this.mainStage.show();
 	}
 
 	public Scene setupMainScene() {
@@ -30,23 +43,21 @@ public class InterfazGrafica extends Application {
 		textForm.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
 		textForm.setAlignment(Pos.CENTER_LEFT);
 		root.getChildren().addAll(textForm);
-		Label fieldLabel = new Label("Nombre: ");
-		fieldLabel.setPrefWidth(50.0);
-		TextField fieldInput = new TextField("Leche");
-		fieldInput.setPrefWidth(100.0);
-		Label fieldLabel2 = new Label("Cantidad: ");
-		fieldLabel.setPrefWidth(50.0);
-		TextField fieldInput2 = new TextField("1");
-		fieldInput.setPrefWidth(100.0);
-
-		textForm.getChildren().addAll(fieldLabel, fieldInput,fieldLabel2, fieldInput2 );
+		TextField form1_ProductName = new TextField("Leche");
+		form1_ProductName.setPrefWidth(100.0);
+		Spinner<Integer> form2_Amount =  new Spinner<Integer>(1, Integer.MAX_VALUE, 1);
+		form2_Amount.setEditable(true);
+		form2_Amount.setPrefWidth(100.0);
+		CheckBox form3_SetComprado = new CheckBox("Comprado");
+		CheckBox form4_SetFavorito = new CheckBox("Favorito");
+		textForm.getChildren().addAll(form1_ProductName, form2_Amount, form3_SetComprado, form4_SetFavorito);
 
 		// botones
 		HBox buttons = new HBox();
 		buttons.setPadding(new Insets(10.0, 5.0, 10.0, 10.0));
 		buttons.setAlignment(Pos.CENTER_RIGHT);
 		Button submitButton = new Button("Capturar");
-		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new TextGrabButtonListener(fieldInput));
+		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new TextGrabButtonListener(form1_ProductName));
 		buttons.getChildren().addAll(submitButton);
 		root.getChildren().addAll(buttons);
 		Scene scene = new Scene(root, 640, 360);
@@ -66,9 +77,8 @@ public class InterfazGrafica extends Application {
 			source.setText(this.textField.getText());
 		}
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 }
