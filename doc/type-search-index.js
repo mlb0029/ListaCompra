@@ -1,1 +1,0 @@
-typeSearchIndex = [{"p":"modelo.datos","l":"ListaCompra"}]
