@@ -1,10 +1,14 @@
 package interfaces.gUI;
 
+import java.awt.Container;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
@@ -27,7 +31,8 @@ public class ListaCompraGUI extends Application {
 		try {
 			listaCompra = persistencia.cargarCont();
 		} catch (Exception e) {
-			System.out.println("Error al cargar datos"); // TODO Mostrar mensaje de error start
+			JOptionPane.showMessageDialog(new Container(), "Error al cargar datos del fichero", "Error Message", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		//GUI
         this.mainStage = primaryStage;
@@ -78,22 +83,22 @@ public class ListaCompraGUI extends Application {
 			// Cantidad
 			Spinner<Integer> productQuantity =  new Spinner<Integer>(1, Integer.MAX_VALUE, liCo.get(prod).getCantidad());
 			productQuantity.setEditable(true);
-			// TODO modificar cantidad
+			productQuantity.valueProperty().addListener(new ChangeQuantityListener(listaCompra, productName));
 			productList.add(productQuantity, 1, rowIndex);
 			//Está comprado
 			CheckBox isBought = new CheckBox("Comprado");
 			isBought.setSelected(liCo.get(prod).getEstaComprado());
-			// TODO marcarComprado
+			isBought.selectedProperty().addListener(new ChangeIsBoughtListener(listaCompra, productName));
 			productList.add(isBought, 2, rowIndex);
 			//Es Favorito
 			CheckBox isFavourite = new CheckBox("Favorito");
 			isFavourite.setSelected(listaCompra.getFavoritos().contains(prod));
 			productList.add(isFavourite, 3, rowIndex);
-			// TODO marcarFavorito
+			isFavourite.selectedProperty().addListener(new ChangeIsFavouriteListener(listaCompra, productName));
 			//Eliminar
 			Button deleteButton = new Button("Eliminar"); // TODO Node grafphic x para eliminar producto de la lista
+			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new deleteProductListener(listaCompra, productName));
 			productList.add(deleteButton, 4, rowIndex);
-			//TODO eliminar
 			//Siguiente fila
 			rowIndex++;
 		}
