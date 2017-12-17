@@ -1,13 +1,12 @@
 package interfaces.gUI;
 
-import java.awt.Container;
 import java.util.HashMap;
-
-import javax.swing.JOptionPane;
-
 import javafx.application.Application;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
@@ -31,7 +30,9 @@ public class ListaCompraGUI extends Application {
 		try {
 			listaCompra = persistencia.cargarCont();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new Container(), "Error al cargar datos del fichero", "Error Message", JOptionPane.ERROR_MESSAGE);
+			Alert errorMessage = new Alert(AlertType.ERROR);
+			errorMessage.setHeaderText("Error al abrir el fichero");
+			errorMessage.showAndWait();
 			System.exit(1);
 		}
 		//GUI
@@ -55,10 +56,13 @@ public class ListaCompraGUI extends Application {
     	MenuItem Exit = new MenuItem("Exit");
     	Exit.setOnAction(new ExitListener());
     	menuShoppingList.getItems().addAll(saveList, openList, clearList, Exit);
-    	Menu menuFavoritesList = new Menu("Favorites list"); // TODO Implementar funcionalidades Menu Favoritos
+    	Menu menuFavoritesList = new Menu("Favorites list");
     	MenuItem addFavourite = new MenuItem("Add favourite");
+    	addFavourite.setOnAction(new addFavouriteListener(listaCompra));
     	MenuItem delFavourite = new MenuItem("Remove favourite");
+    	delFavourite.setOnAction(new delFavouriteListener(listaCompra));
     	MenuItem clearFavourites = new MenuItem("Clear favourites");
+    	clearFavourites.setOnAction(new ClearFavouritesListener(listaCompra));
     	menuFavoritesList.getItems().addAll(addFavourite, delFavourite, clearFavourites);
     	menuBar.getMenus().addAll(menuShoppingList, menuFavoritesList);
     	root.setTop(menuBar);
@@ -67,8 +71,8 @@ public class ListaCompraGUI extends Application {
     	// TODO Implementar funcionalidades Centro: ListaCompra (EventHandler o EventFilter)
     	root.setCenter(shoppingList);
     	//BOTTOM
-    	Text madeBy = new Text("Made by Clara Palacios Rodrigo & Miguel Ángel León Bardavío"); // TODO Centrar autores
-    	madeBy.setTextAlignment(TextAlignment.CENTER);
+    	Text madeBy = new Text("Made by Clara Palacios Rodrigo & Miguel Ángel León Bardavío");
+    	BorderPane.setAlignment(madeBy, Pos.CENTER);
     	root.setBottom(madeBy);
     	return new Scene(root, 640, 360);
     }
@@ -102,9 +106,26 @@ public class ListaCompraGUI extends Application {
 			//Siguiente fila
 			rowIndex++;
 		}
+		productList.add(new Separator(Orientation.HORIZONTAL),0,rowIndex,5,1);
+		rowIndex++;
+		ComboBox<String> productName = new ComboBox<String>();
+		productName.getItems().addAll(listaCompra.getFavoritos());
+		productName.setEditable(true);
+		productName.setPromptText("Nombre Producto");
+		productList.add(productName, 0, rowIndex);
+		Spinner<Integer> productQuantity =  new Spinner<Integer>(1, Integer.MAX_VALUE, 1);
+		productQuantity.setEditable(true);
+		productList.add(productQuantity, 1, rowIndex);
+		CheckBox isBought = new CheckBox("Comprado");
+		isBought.setDisable(true);
+		productList.add(isBought, 2, rowIndex);
+		CheckBox isFavourite = new CheckBox("Favorito");// TODO Bloquear isFavorito si la seleccion es de la lista
+		productList.add(isFavourite, 3, rowIndex);
+		Button addButton = new Button("Añadir"); // TODO Node grafphic + para añadir producto a la lista
+		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new addProductListener(listaCompra, productName, productQuantity, isFavourite));
+		productList.add(addButton, 4, rowIndex);
     	return productList;
     }
-    
     
 	 public static void main(String[] args) {
 	        launch(args);

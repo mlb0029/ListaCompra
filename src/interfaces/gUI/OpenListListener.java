@@ -2,6 +2,8 @@ package interfaces.gUI;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import modelo.datos.ListaCompra;
 import modelo.persistencia.IPersistencia;
 
@@ -43,8 +45,10 @@ public class OpenListListener implements EventHandler<ActionEvent>{
 		try {
 			this.listaCompra = this.persitence.cargarCont();
 		} catch (Exception e) {
-			// TODO Mostrar Mensaje de error OpenListListener
-			e.printStackTrace();
+			Alert errorMessage = new Alert(AlertType.ERROR);
+			errorMessage.setHeaderText("Error al abrir el fichero");
+			errorMessage.showAndWait();
+			System.exit(1);
 		}
 	}
 

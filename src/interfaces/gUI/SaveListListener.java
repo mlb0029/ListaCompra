@@ -2,6 +2,8 @@ package interfaces.gUI;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import modelo.datos.ListaCompra;
 import modelo.persistencia.IPersistencia;
 
@@ -43,8 +45,9 @@ public class SaveListListener implements EventHandler<ActionEvent>{
 		try {
 			this.persitence.guardarContenido(listaCompra);
 		} catch (Exception e) {
-			// TODO Mostrar Mensaje de error SaveListListener
-			e.printStackTrace();
+			Alert errorMessage = new Alert(AlertType.ERROR);
+			errorMessage.setHeaderText("Error al guardar");
+			errorMessage.showAndWait();
 		}
 	}
 

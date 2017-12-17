@@ -3,7 +3,12 @@
  */
 package interfaces.gUI;
 
+import java.util.Optional;
+
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import modelo.datos.ListaCompra;
@@ -15,11 +20,11 @@ import modelo.datos.ListaCompra;
 public class deleteProductListener implements EventHandler<MouseEvent> {
 
 	private ListaCompra listaCompra;
-	private String producto;
+	private Label producto;
 
 	public deleteProductListener(ListaCompra listaCompra, Label productName) {
 		this.listaCompra = listaCompra;
-		this.producto = productName.getText();
+		this.producto = productName;
 	}
 
 	/* (non-Javadoc)
@@ -27,7 +32,11 @@ public class deleteProductListener implements EventHandler<MouseEvent> {
 	 */
 	@Override
 	public void handle(MouseEvent arg0) {
-		this.listaCompra.eliminarProducto(producto);
+		Alert confirmation = new Alert(AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
+		confirmation.setHeaderText("¿Eliminar " + producto.getText() + " de la lista de la  compra?");
+		Optional<ButtonType> result = confirmation.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.YES)
+			this.listaCompra.eliminarProducto(producto.getText());
 	}
 
 }
