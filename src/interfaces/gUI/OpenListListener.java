@@ -41,6 +41,7 @@ public class OpenListListener implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent arg0) {
 		try {
+			System.out.println("Entra");
 			this.listaCompra = this.persitence.cargarCont();
 		} catch (Exception e) {
 			// TODO Mostrar Mensaje de error OpenListListener
