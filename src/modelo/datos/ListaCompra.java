@@ -165,17 +165,19 @@ public class ListaCompra {
 	 */
 	public Boolean anadirProducto(String nombreProducto, Integer cantidad) {
 		Boolean retorno = false;
-		Producto producto = getProducto(nombreProducto);
-		if (producto == null) {
-			producto = new Producto(nombreProducto, false);
-			LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
-			listaProductos.put(nombreProducto, producto);
-			listaCompra.put(nombreProducto, lineaProducto);
-			retorno = true;
-		}else if (!listaCompra.containsKey(nombreProducto)) {
-			LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
-			listaCompra.put(nombreProducto, lineaProducto);
-			retorno = true;
+		if (nombreProducto != null  && nombreProducto != "" && cantidad > 0) {
+			Producto producto = getProducto(nombreProducto);
+			if (producto == null) {
+				producto = new Producto(nombreProducto, false);
+				LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
+				listaProductos.put(nombreProducto, producto);
+				listaCompra.put(nombreProducto, lineaProducto);
+				retorno = true;
+			}else if (!listaCompra.containsKey(nombreProducto)) {
+				LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
+				listaCompra.put(nombreProducto, lineaProducto);
+				retorno = true;
+			}
 		}
 		return retorno;
 	}
