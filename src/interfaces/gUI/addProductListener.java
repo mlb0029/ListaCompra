@@ -51,18 +51,7 @@ public class addProductListener implements EventHandler<MouseEvent> {
 	 * @see javafx.event.EventHandler#handle(javafx.event.Event)
 	 */
 	@Override
-	// public void handle(MouseEvent arg0) {
-	// Alert errorMessage;
-	// if (!this.listaCompra.anadirProducto(productName.getValue(),
-	// productQuantity.getValue())) {
-	// errorMessage = new Alert(AlertType.ERROR);
-	// errorMessage.setHeaderText("Campo 'Nombre' vacío o producto ya
-	// existente");
-	// errorMessage.showAndWait();
-	// }
-	// if (productIsFavourite.isSelected())
-	// this.listaCompra.anadirFavorito(productName.getValue());
-	// }
+	
 
 	public void handle(MouseEvent arg0) {
 		// para el nombre del producto
@@ -90,14 +79,14 @@ public class addProductListener implements EventHandler<MouseEvent> {
 			} else {
 				this.listaCompra.setComprado(nomProd, false);
 			}
-			System.out.println(intFactory.getValue().getClass());
+			
 			BorderPane root = (BorderPane) ventana.getScene().lookup("#root");
-			root.setCenter(listarCompra(this.listaCompra.getListaCompra()));
+			root.setCenter(anadirProd(this.listaCompra.getListaCompra()));
 		}
 	
 	}
 	
-	public GridPane listarCompra(HashMap<String, LineaProducto> liCo) {
+	public GridPane anadirProd(HashMap<String, LineaProducto> liCo) {
 
 
 		
@@ -125,7 +114,7 @@ public class addProductListener implements EventHandler<MouseEvent> {
 			isFavourite.selectedProperty().addListener(new ChangeIsFavouriteListener(listaCompra, productName));
 			//Eliminar
 			Button deleteButton = new Button("Eliminar"); // TODO Node grafphic x para eliminar producto de la lista
-			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new deleteProductListener(listaCompra, productName));
+			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new deleteProductListener(ventana, listaCompra, productName));
 			productList.add(deleteButton, 4, rowIndex);
 			//Siguiente fila
 			rowIndex++;
@@ -141,11 +130,12 @@ public class addProductListener implements EventHandler<MouseEvent> {
 		Spinner<Integer> productQuantity =  new Spinner<Integer>(1, Integer.MAX_VALUE, 1);
 		productQuantity.setEditable(true);
 		productList.add(productQuantity, 1, rowIndex);
+		CheckBox isFavourite = new CheckBox("Favorito");// TODO Bloquear isFavorito si la seleccion es de la lista
+		productList.add(isFavourite, 2, rowIndex);
 		CheckBox isBought = new CheckBox("Comprado");
 		isBought.setDisable(true);
-		productList.add(isBought, 2, rowIndex);
-		CheckBox isFavourite = new CheckBox("Favorito");// TODO Bloquear isFavorito si la seleccion es de la lista
-		productList.add(isFavourite, 3, rowIndex);
+		productList.add(isBought, 3, rowIndex);
+
 		Button addButton = new Button("Añadir"); // TODO Node grafphic + para añadir producto a la lista
 		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new addProductListener(ventana, listaCompra, productName, productQuantity, isFavourite));
 		productList.add(addButton, 4, rowIndex);

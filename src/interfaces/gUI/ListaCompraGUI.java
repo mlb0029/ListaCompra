@@ -72,7 +72,6 @@ public class ListaCompraGUI extends Application {
     	GridPane shoppingList = listarCompra(liCo);
     	// TODO Implementar funcionalidades Centro: ListaCompra (EventHandler o EventFilter)
     	root.setCenter(shoppingList);
-    	
     	//BOTTOM
     	Text madeBy = new Text("Made by Clara Palacios Rodrigo & Miguel Ángel León Bardavío");
     	BorderPane.setAlignment(madeBy, Pos.CENTER);
@@ -81,11 +80,7 @@ public class ListaCompraGUI extends Application {
     }
     
     
-    //TODOOOO
-     GridPane modificar(HashMap<String, LineaProducto> liCo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+   
 
 	GridPane listarCompra(HashMap<String, LineaProducto> liCo){
 		GridPane productList = new GridPane();
@@ -111,7 +106,7 @@ public class ListaCompraGUI extends Application {
 			isFavourite.selectedProperty().addListener(new ChangeIsFavouriteListener(listaCompra, productName));
 			//Eliminar
 			Button deleteButton = new Button("Eliminar"); // TODO Node grafphic x para eliminar producto de la lista
-			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new deleteProductListener(listaCompra, productName));
+			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new deleteProductListener(mainStage, listaCompra, productName));
 			productList.add(deleteButton, 4, rowIndex);
 			//Siguiente fila
 			rowIndex++;
@@ -137,6 +132,8 @@ public class ListaCompraGUI extends Application {
     	return productList;
     }
     
+	
+
 	 public static void main(String[] args) {
 	        launch(args);
 	 }
