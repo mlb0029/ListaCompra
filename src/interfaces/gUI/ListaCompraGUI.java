@@ -44,6 +44,7 @@ public class ListaCompraGUI extends Application {
     
     Scene setupMainScene(){
     	BorderPane root = new BorderPane();
+    	root.setId("root");
     	//TOP
     	MenuBar menuBar = new MenuBar();
     	Menu menuShoppingList = new Menu("Shopping list");
@@ -67,18 +68,27 @@ public class ListaCompraGUI extends Application {
     	menuBar.getMenus().addAll(menuShoppingList, menuFavoritesList);
     	root.setTop(menuBar);
     	//CENTER
-    	GridPane shoppingList = listarCompra();
+    	HashMap<String, LineaProducto> liCo = new HashMap<String, LineaProducto>(listaCompra.getListaCompra());
+    	GridPane shoppingList = listarCompra(liCo);
     	// TODO Implementar funcionalidades Centro: ListaCompra (EventHandler o EventFilter)
     	root.setCenter(shoppingList);
+    	
     	//BOTTOM
     	Text madeBy = new Text("Made by Clara Palacios Rodrigo & Miguel Ángel León Bardavío");
     	BorderPane.setAlignment(madeBy, Pos.CENTER);
     	root.setBottom(madeBy);
     	return new Scene(root, 640, 360);
     }
-    GridPane listarCompra(){
-		HashMap<String, LineaProducto> liCo = new HashMap<String, LineaProducto>(listaCompra.getListaCompra());
-    	GridPane productList = new GridPane();
+    
+    
+    //TODOOOO
+     GridPane modificar(HashMap<String, LineaProducto> liCo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	GridPane listarCompra(HashMap<String, LineaProducto> liCo){
+		GridPane productList = new GridPane();
     	Integer rowIndex = 0;
 		for (String prod : liCo.keySet()) {
 			// Nombre del producto
@@ -122,7 +132,7 @@ public class ListaCompraGUI extends Application {
 		CheckBox isFavourite = new CheckBox("Favorito");// TODO Bloquear isFavorito si la seleccion es de la lista
 		productList.add(isFavourite, 3, rowIndex);
 		Button addButton = new Button("Añadir"); // TODO Node grafphic + para añadir producto a la lista
-		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new addProductListener(listaCompra, productName, productQuantity, isFavourite));
+		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new addProductListener(mainStage, listaCompra, productName, productQuantity, isFavourite));
 		productList.add(addButton, 4, rowIndex);
     	return productList;
     }
