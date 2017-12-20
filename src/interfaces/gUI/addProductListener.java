@@ -66,9 +66,8 @@ public class addProductListener implements EventHandler<MouseEvent> {
 
 		HashMap<String, LineaProducto> listaCompra = this.listaCompra.getListaCompra();
 		if (!nomProd.equals("")) {
-			ArrayList<String> nombreslista = new ArrayList<String>(listaCompra.keySet());
+			//ArrayList<String> nombreslista = new ArrayList<String>(listaCompra.keySet());
 
-			// String nombreProducto = nombreslista.get((nomProd));
 
 			if (!nomProd.isEmpty()) {
 				this.listaCompra.anadirProducto(nomProd, intFactory.getValue());
@@ -130,11 +129,12 @@ public class addProductListener implements EventHandler<MouseEvent> {
 		Spinner<Integer> productQuantity =  new Spinner<Integer>(1, Integer.MAX_VALUE, 1);
 		productQuantity.setEditable(true);
 		productList.add(productQuantity, 1, rowIndex);
-		CheckBox isFavourite = new CheckBox("Favorito");// TODO Bloquear isFavorito si la seleccion es de la lista
-		productList.add(isFavourite, 2, rowIndex);
 		CheckBox isBought = new CheckBox("Comprado");
 		isBought.setDisable(true);
-		productList.add(isBought, 3, rowIndex);
+		productList.add(isBought, 2, rowIndex);
+		CheckBox isFavourite = new CheckBox("Favorito");// TODO Bloquear isFavorito si la seleccion es de la lista
+		productList.add(isFavourite, 3, rowIndex);
+
 
 		Button addButton = new Button("Añadir"); // TODO Node grafphic + para añadir producto a la lista
 		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new addProductListener(ventana, listaCompra, productName, productQuantity, isFavourite));
