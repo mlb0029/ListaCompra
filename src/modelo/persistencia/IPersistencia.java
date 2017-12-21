@@ -4,19 +4,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import modelo.datos.*;
+import util.ISujeto_Observado;
 
 /**
  * Define la interfaz para definir el sistema de persistencia.
  * 
  * @author CLARA PALACIOS RODRIGO
  */
-public interface IPersistencia {
+public interface IPersistencia extends ISujeto_Observado{
 
 	/**
 	 * Muestra en pantalla el contenido del fichero.
 	 * 
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @throws FileNotFoundException No se encuentra el fichero.
+	 * @throws IOException Error de entrada/salida del fichero.
 	 */
 	public abstract void muestraContenido() throws FileNotFoundException, IOException;
 
@@ -24,7 +25,7 @@ public interface IPersistencia {
 	 * Almacena los datos creados por la aplicación en un fichero.
 	 * 
 	 * @param listaCompra Datos creados por la aplicación.
-	 * @throws Exception
+	 * @throws Exception De apertura del fichero.
 	 */
 	public abstract void guardarContenido(ListaCompra listaCompra) throws Exception;
 
@@ -32,7 +33,7 @@ public interface IPersistencia {
 	 * Carga los datos de un fichero en la aplicación.
 	 * 
 	 * @return Almacen de datos de la aplicación.
-	 * @throws Exception
+	 * @throws Exception De apertura del fichero.
 	 */
 	public abstract ListaCompra cargarCont() throws Exception;
 

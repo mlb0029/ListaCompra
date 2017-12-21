@@ -6,10 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import modelo.datos.*;
+import util.IListaListeners;
 
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Forma de trabajar con los ficheros de datos de la aplicación.
@@ -22,12 +24,13 @@ import java.util.HashSet;
  */
 public class PersistenciaListaCompra extends Persistencia implements IPersistencia{
 
-
+	private HashSet<IListaListeners> listeners;
 	/**
 	 * Constructor de la clase.
 	 */
 	public PersistenciaListaCompra() {
 		super();
+		listeners = new HashSet<IListaListeners>();
 	}
 	
 	/* (non-Javadoc)
@@ -69,7 +72,6 @@ public class PersistenciaListaCompra extends Persistencia implements IPersistenc
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -106,6 +108,33 @@ public class PersistenciaListaCompra extends Persistencia implements IPersistenc
 		}catch (Exception e) {
 			throw new Exception("Error al guardar datos");
 		}
+		this.notifyListeners();
 		return listaCompra;
+	}
+
+	/* (non-Javadoc)
+	 * @see util.ISujeto_Observado#addListener(util.IListaListeners)
+	 */
+	@Override
+	public void addListener(IListaListeners listener) {
+		this.listeners.add(listener);
+	}
+
+	/* (non-Javadoc)
+	 * @see util.ISujeto_Observado#removeListener(util.IListaListeners)
+	 */
+	@Override
+	public void removeListener(IListaListeners listener) {
+		this.listeners.add(listener);
+	}
+
+	/* (non-Javadoc)
+	 * @see util.ISujeto_Observado#notifyListeners()
+	 */
+	@Override
+	public void notifyListeners() {
+		Iterator<IListaListeners> it = this.listeners.iterator();
+		while (it.hasNext())
+			it.next().update();
 	}
 }

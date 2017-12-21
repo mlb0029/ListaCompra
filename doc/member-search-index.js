@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"modelo.persistencia","c":"IPersistencia","l":"cargarCont()"},{"p":"modelo.persistencia","c":"IPersistencia","l":"guardarContenido(ListaCompra)","url":"guardarContenido-modelo.datos.ListaCompra-"},{"p":"modelo.persistencia","c":"IPersistencia","l":"muestraContenido()"}]

@@ -186,19 +186,20 @@ public class InterfazConsola {
 					System.out.println("Se estan guardando los datos...");
 					try {
 						persistencia.guardarContenido(listaCompra);
+						System.out.println("Datos almacenados correctamente...");
 					} catch (Exception e) {
 						System.out.println("Error inesperado");
 					}
-					System.out.println("Datos almacenados correctamente...");
+					
 					break;
 				case 13:
 					System.out.println("Se estan cargando los datos...");
 					try {
 						this.listaCompra = persistencia.cargarCont();
+						System.out.println("Datos cargados!...");
 					} catch (Exception e) {
 						System.out.println("Error inesperado");
 					}
-					System.out.println("Datos cargados!...");
 					break;
 
 				default:

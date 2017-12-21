@@ -2,7 +2,11 @@ package modelo.datos;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+
+import util.IListaListeners;
+import util.ISujeto_Observado;
 
 /**
  * Almacena los datos de lista de la compra &lt;&lt;Singleton&gt;&gt;.
@@ -11,11 +15,7 @@ import java.util.Map;
  * 
  * @author MIGUEL ANGEL LEON BARDAVIO
  */
-/**
- * @author MIGUEL ANGEL LEON BARDAVIO
- *
- */
-public class ListaCompra {
+public class ListaCompra implements ISujeto_Observado{
 	//***********************************
 	// ATRIBUTOS
 	//***********************************
@@ -34,6 +34,8 @@ public class ListaCompra {
 	 */
 	private HashMap<String, LineaProducto> listaCompra;
 	
+	private HashSet<IListaListeners> listeners;
+	
 	//***********************************
 	// MÉTODOS
 	//***********************************
@@ -45,6 +47,7 @@ public class ListaCompra {
 	private ListaCompra() {
 		this.listaCompra = new HashMap<String, LineaProducto>();
 		this.listaProductos = new HashMap<String, Producto>();
+		this.listeners = new HashSet<IListaListeners>();
 	}	
 	
 	/**
@@ -165,7 +168,7 @@ public class ListaCompra {
 	 */
 	public Boolean anadirProducto(String nombreProducto, Integer cantidad) {
 		Boolean retorno = false;
-		if (nombreProducto != null  && nombreProducto != "" && cantidad > 0) {
+		if (nombreProducto != null  && nombreProducto.length() != 0 && cantidad != null && cantidad > 0) {
 			Producto producto = getProducto(nombreProducto);
 			if (producto == null) {
 				producto = new Producto(nombreProducto, false);
@@ -173,10 +176,12 @@ public class ListaCompra {
 				listaProductos.put(nombreProducto, producto);
 				listaCompra.put(nombreProducto, lineaProducto);
 				retorno = true;
+				notifyListeners();
 			}else if (!listaCompra.containsKey(nombreProducto)) {
 				LineaProducto lineaProducto = new LineaProducto(producto, cantidad);
 				listaCompra.put(nombreProducto, lineaProducto);
 				retorno = true;
+				notifyListeners();
 			}
 		}
 		return retorno;
@@ -199,6 +204,7 @@ public class ListaCompra {
 		if (liProd != null) {
 			retorno = liProd.setCantidad(cantidad);
 		}
+		notifyListeners();
 		return retorno;
 	}
 
@@ -216,6 +222,7 @@ public class ListaCompra {
 			liProd.setEstaComprado(esComprado);
 			retorno = true;
 		}
+		notifyListeners();
 		return retorno;
 	}
 
@@ -233,6 +240,7 @@ public class ListaCompra {
 		Boolean retorno = listaCompra.remove(nombreProducto) != null;
 		if (retorno && !getProducto(nombreProducto).isFavorito())
 			this.listaProductos.remove(nombreProducto);
+		notifyListeners();
 		return retorno;
 	}
 
@@ -246,9 +254,12 @@ public class ListaCompra {
 	 * @param nombreProducto Nombre del producto a marcar como favorito.
 	 */
 	public void anadirFavorito(String nombreProducto) {
-		Producto producto = listaProductos.getOrDefault(nombreProducto, new Producto(nombreProducto, false));
-		producto.setEsFavorito(true);
-		listaProductos.put(nombreProducto, producto);
+		if(nombreProducto != null && nombreProducto.length() != 0) {
+			Producto producto = listaProductos.getOrDefault(nombreProducto, new Producto(nombreProducto, false));
+			producto.setEsFavorito(true);
+			listaProductos.put(nombreProducto, producto);
+			notifyListeners();
+		}
 	}
 	
 	/**
@@ -267,6 +278,7 @@ public class ListaCompra {
 				producto.setEsFavorito(false);
 			else
 				listaProductos.remove(nombreProducto);
+		notifyListeners();
 		return retorno;
 	}
 
@@ -279,6 +291,7 @@ public class ListaCompra {
 				listaProductos.remove(producto);
 			listaCompra.remove(producto);
 		}
+		notifyListeners();
 	}
 
 	
@@ -292,6 +305,7 @@ public class ListaCompra {
 				getProducto(fav).setEsFavorito(false);
 			else
 				listaProductos.remove(fav);
+		notifyListeners();
 	}
 
 	/**
@@ -300,5 +314,32 @@ public class ListaCompra {
 	public void clearAll() {
 		this.limpiarListaCompra();
 		this.limpiarFavoritos();
+		notifyListeners();
+	}
+	
+	/* (non-Javadoc)
+	 * @see modelo.datos.SujetoObservado#addListener(listeners.IListaListeners)
+	 */
+	@Override
+	public void addListener(IListaListeners listener) {
+		this.listeners.add(listener);
+	}
+	
+	/* (non-Javadoc)
+	 * @see modelo.datos.SujetoObservado#removeListener(listeners.IListaListeners)
+	 */
+	@Override
+	public void removeListener(IListaListeners listener) {
+		this.listeners.remove(listener);
+	}
+	
+	/* (non-Javadoc)
+	 * @see modelo.datos.SujetoObservado#notifyListeners()
+	 */
+	@Override
+	public void notifyListeners() {
+		Iterator<IListaListeners> it = this.listeners.iterator();
+		while (it.hasNext())
+			it.next().update();
 	}
 }
