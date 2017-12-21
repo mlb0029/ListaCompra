@@ -1,6 +1,3 @@
-/**
- * 
- */
 package interfaces.gUI.listeners;
 
 import java.util.Optional;
@@ -10,14 +7,26 @@ import javafx.scene.control.TextInputDialog;
 import modelo.datos.ListaCompra;
 
 /**
- * @author Miguel Ángel León
- *
+ * Listener para añadir favorito.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see ListaCompra
  */
-public class addFavouriteListener implements EventHandler<ActionEvent> {
+public class AddFavouriteListener implements EventHandler<ActionEvent> {
 
+	/**
+	 * Referencia a la lista de la compra.
+	 * 
+	 * @see ListaCompra
+	 */
 	private ListaCompra listaCompra;
 
-	public addFavouriteListener(ListaCompra listaCompra) {
+	/**
+	 * Constructor que recibe la referencia a la lista de la compra.
+	 * 
+	 * @param listaCompra Lista de la compra.
+	 */
+	public AddFavouriteListener(ListaCompra listaCompra) {
 		this.listaCompra = listaCompra;
 	}
 
@@ -35,5 +44,4 @@ public class addFavouriteListener implements EventHandler<ActionEvent> {
 		if(result.isPresent())
 			this.listaCompra.anadirFavorito(result.get());
 	}
-
 }

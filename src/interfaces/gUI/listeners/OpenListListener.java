@@ -9,7 +9,7 @@ import modelo.persistencia.IPersistencia;
 /**
  * Delega en IPersitencia almacenar los datos de ListaCompra.
  * 
- * @author Miguel Ángel León
+ * @author MIGUEL ANGEL LEON BARDAVIO
  * @see IPersistencia
  * @see ListaCompra
  */

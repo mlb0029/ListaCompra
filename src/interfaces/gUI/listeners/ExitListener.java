@@ -1,12 +1,14 @@
 package interfaces.gUI.listeners;
 
+import aplicacion.GraphicAplication;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
  * Cierra la aplicación.
  * 
- * @author Miguel Ángel León
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see GraphicAplication
  */
 public class ExitListener implements EventHandler<ActionEvent>{
 

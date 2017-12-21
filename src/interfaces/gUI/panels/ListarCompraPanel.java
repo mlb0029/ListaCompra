@@ -5,7 +5,7 @@ import java.util.HashMap;
 import interfaces.gUI.listeners.ChangeIsBoughtListener;
 import interfaces.gUI.listeners.ChangeIsFavouriteListener;
 import interfaces.gUI.listeners.ChangeQuantityListener;
-import interfaces.gUI.listeners.deleteProductListener;
+import interfaces.gUI.listeners.DeleteProductListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -16,12 +16,24 @@ import modelo.datos.LineaProducto;
 import modelo.datos.ListaCompra;
 import util.IListaListeners;
 
+/**
+ * Panel que muestra la lista de la compra.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @author CLARA PALACIOS RODRIGO
+ * @see ListaCompra
+ */
 public class ListarCompraPanel extends GridPane implements IListaListeners {
 
+	/**
+	 * Referencia a la lista de la compra.
+	 */
 	private ListaCompra listaCompra;
 	
 	/**
-	 * @param listaCompra
+	 * Constructor.
+	 * 
+	 * @param listaCompra Lista de la compra.
 	 */
 	public ListarCompraPanel(ListaCompra listaCompra) {
 		this.listaCompra = listaCompra;
@@ -29,6 +41,9 @@ public class ListarCompraPanel extends GridPane implements IListaListeners {
 		update();
 	}
 
+	/* (non-Javadoc)
+	 * @see util.IListaListeners#update()
+	 */
 	@Override
 	public void update() {
 		
@@ -57,7 +72,7 @@ public class ListarCompraPanel extends GridPane implements IListaListeners {
 			isFavourite.selectedProperty().addListener(new ChangeIsFavouriteListener(listaCompra, prod));
 			//Eliminar
 			Button deleteButton = new Button("Eliminar"); // TODO Node grafphic x para eliminar producto de la lista
-			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new deleteProductListener(listaCompra, prod));
+			deleteButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new DeleteProductListener(listaCompra, prod));
 			this.add(deleteButton, 4, rowIndex);
 			//Siguiente fila
 			rowIndex++;

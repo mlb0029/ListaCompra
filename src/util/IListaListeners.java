@@ -4,6 +4,8 @@
 package util;
 
 /**
+ * Permite a una clase llevar el rol de Observador del patrón "Observador".
+ * 
  * @author MIGUEL ANGEL LEON BARDAVIO
  *
  */

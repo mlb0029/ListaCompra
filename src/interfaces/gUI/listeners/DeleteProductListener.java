@@ -13,15 +13,32 @@ import javafx.scene.input.MouseEvent;
 import modelo.datos.ListaCompra;
 
 /**
- * @author Miguel Ángel León
- *
+ * Permite borrar un producto de la lista de la compra.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see ListaCompra
  */
-public class deleteProductListener implements EventHandler<MouseEvent> {
+public class DeleteProductListener implements EventHandler<MouseEvent> {
 
+	/**
+	 * Referencia a lista de la compra.
+	 * 
+	 * @see ListaCompra
+	 */
 	private ListaCompra listaCompra;
+	
+	/**
+	 * Nombre del producto sobre el que actúa.
+	 */
 	private String producto;
 	
-	public deleteProductListener(ListaCompra listaCompra, String productName) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param listaCompra Lista de la compra.
+	 * @param productName Nombre del producto.
+	 */
+	public DeleteProductListener(ListaCompra listaCompra, String productName) {
 		this.listaCompra = listaCompra;
 		this.producto = productName;
 	}

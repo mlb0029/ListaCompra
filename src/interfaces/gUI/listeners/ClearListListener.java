@@ -12,8 +12,8 @@ import modelo.datos.ListaCompra;
 /**
  * Limpia la lista de la compra.
  * 
- * @author Miguel Ángel León
- *
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see ListaCompra
  */
 public class ClearListListener implements EventHandler<ActionEvent> {
 

@@ -1,9 +1,6 @@
-/**
- * 
- */
 package interfaces.gUI.panels;
 
-import interfaces.gUI.listeners.addProductListener;
+import interfaces.gUI.listeners.AddProductListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -14,24 +11,42 @@ import modelo.datos.ListaCompra;
 import util.IListaListeners;
 
 /**
- * @author Miguel Ángel León
- *
+ * Panel que recoge los controles necesarios para añadir un producto.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see AddProductListener
  */
 public class AddProductPanel extends VBox implements IListaListeners {
 
+	/**
+	 * 
+	 */
 	ListaCompra listaCompra;
+	/**
+	 * Nombre de producto.
+	 */
 	ComboBox<String> productName;
+	/**
+	 * Cantidad de producto.
+	 */
 	Spinner<Integer> productQuantity;
+	/**
+	 * Esta comprado o no.
+	 */
 	CheckBox isBought;
+	/**
+	 * Producto es favorito o no.
+	 */
 	CheckBox isFavourite;
+	/**
+	 * Botón de añadir.
+	 */
 	Button addButton;
 	
 	/**
-	 * @param productName
-	 * @param productQuantity
-	 * @param isBought
-	 * @param isFavourite
-	 * @param addButton
+	 * Constructor.
+	 * 
+	 * @param mainPanel Nodo padre.
 	 */
 	public AddProductPanel(MainPanel mainPanel) {
 		
@@ -49,7 +64,7 @@ public class AddProductPanel extends VBox implements IListaListeners {
 		this.isFavourite = new CheckBox("Favorito");
 		
 		this.addButton = new Button("Añadir");
-		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new addProductListener(this));
+		addButton.addEventFilter(MouseEvent.MOUSE_CLICKED, new AddProductListener(this));
 		
 		this.getChildren().addAll(productName, productQuantity, isFavourite, addButton);
 	}

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package interfaces.gUI.listeners;
 
 import interfaces.gUI.panels.AddProductPanel;
@@ -9,16 +6,33 @@ import javafx.scene.input.MouseEvent;
 import modelo.datos.ListaCompra;
 
 /**
- * @author Miguel Ángel León
+ * Listener que permite añadir un producto a la lista de la compra.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @author CLARA PALACIOS RODRIGO
+ * @see ListaCompra
  *
  */
-public class addProductListener implements EventHandler<MouseEvent> {
+public class AddProductListener implements EventHandler<MouseEvent> {
 
+	/**
+	 * Referencia a la lista de la compra.
+	 * 
+	 * @see ListaCompra
+	 */
 	private ListaCompra listaCompra;
 
+	/**
+	 * Referencia al panel de donde recoge los datos del nuevo producto.
+	 */
 	private AddProductPanel app;
 
-	public addProductListener(AddProductPanel addProductPanel) {
+	/**
+	 * Constructor que inicializa los atributos de la clase.
+	 * 
+	 * @param addProductPanel Panel de donde recoge los datos del nuevo producto.
+	 */
+	public AddProductListener(AddProductPanel addProductPanel) {
 		this.app = addProductPanel;
 		this.listaCompra = this.app.getListaCompra();
 	}

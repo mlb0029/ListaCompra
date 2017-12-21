@@ -1,3 +1,3 @@
 set CLASSPATH=.\rsc;.\bin;;
 
-java interfaces.gUI.ListaCompraGUI
+java aplicacion.GraphicAplication

@@ -17,14 +17,24 @@ import javafx.scene.control.ChoiceDialog;
 import modelo.datos.ListaCompra;
 
 /**
- * @author Miguel Ángel León
- *
+ * Permite borrar un favorito de la lista de la compra.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see ListaCompra
  */
-public class delFavouriteListener implements EventHandler<ActionEvent> {
+public class DelFavouriteListener implements EventHandler<ActionEvent> {
 
+	/**
+	 * Referencia a la lista de la compra.
+	 */
 	private ListaCompra listaCompra;
 
-	public delFavouriteListener(ListaCompra listaCompra) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param listaCompra Lista de la compra.
+	 */
+	public DelFavouriteListener(ListaCompra listaCompra) {
 		this.listaCompra = listaCompra;
 	}
 

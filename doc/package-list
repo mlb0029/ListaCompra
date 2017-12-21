@@ -1,1 +1,7 @@
+aplicacion
+interfaces.gUI.listeners
+interfaces.gUI.panels
+interfaces.tUI
+modelo.datos
 modelo.persistencia
+util

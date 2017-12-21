@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"modelo.persistencia"}]
+packageSearchIndex = [{"l":"aplicacion"},{"l":"interfaces.gUI.listeners"},{"l":"interfaces.gUI.panels"},{"l":"interfaces.tUI"},{"l":"modelo.datos"},{"l":"modelo.persistencia"},{"l":"util"}]

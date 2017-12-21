@@ -1,7 +1,7 @@
 /**
  * Clases útiles para todos los paquetes.
  * 
- * @author Miguel Ángel León
+ * @author MIGUEL ANGEL LEON BARDAVIO
  *
  */
 package util;

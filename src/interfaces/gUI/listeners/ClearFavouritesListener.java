@@ -1,6 +1,3 @@
-/**
- * 
- */
 package interfaces.gUI.listeners;
 
 import java.util.Optional;
@@ -13,13 +10,24 @@ import javafx.scene.control.ButtonType;
 import modelo.datos.ListaCompra;
 
 /**
- * @author Miguel Ángel León
+ * Listener que borra la lista de favoritos.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
+ * @see ListaCompra
  *
  */
 public class ClearFavouritesListener implements EventHandler<ActionEvent> {
 
+	/**
+	 * Referencia a la lista de la compra.
+	 */
 	private ListaCompra listaCompra;
 
+	/**
+	 * Constructor.
+	 *  
+	 * @param listaCompra Lista de la compra.
+	 */
 	public ClearFavouritesListener(ListaCompra listaCompra) {
 		this.listaCompra = listaCompra;
 	}

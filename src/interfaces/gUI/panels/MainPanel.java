@@ -8,7 +8,9 @@ import modelo.datos.ListaCompra;
 import modelo.persistencia.IPersistencia;
 
 /**
- * @author Miguel Ángel León
+ * Nodo proncipal de la interfaz gráfica.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
  *
  */
 public class MainPanel extends BorderPane {
@@ -44,7 +46,7 @@ public class MainPanel extends BorderPane {
 		this.setCenter(new ScrollPane(new ListarCompraPanel(listaCompra)));
 		
 		//BOTTOM
-		Label madeBy = new Label("Clara Palacios Rodrigo & Miguel Ángel León Bardavío");
+		Label madeBy = new Label("CLARA PALACIOS RODRIGO & MIGUEL ANGEL LEON BARDAVIO");
 		this.setBottom(madeBy);
 		MainPanel.setAlignment(madeBy, Pos.CENTER);
 	}

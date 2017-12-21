@@ -1,6 +1,3 @@
-/**
- * 
- */
 package interfaces.gUI.panels;
 
 import interfaces.gUI.listeners.ClearFavouritesListener;
@@ -8,8 +5,8 @@ import interfaces.gUI.listeners.ClearListListener;
 import interfaces.gUI.listeners.ExitListener;
 import interfaces.gUI.listeners.OpenListListener;
 import interfaces.gUI.listeners.SaveListListener;
-import interfaces.gUI.listeners.addFavouriteListener;
-import interfaces.gUI.listeners.delFavouriteListener;
+import interfaces.gUI.listeners.AddFavouriteListener;
+import interfaces.gUI.listeners.DelFavouriteListener;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -18,20 +15,27 @@ import modelo.persistencia.IPersistencia;
 import util.IListaListeners;
 
 /**
- * @author Miguel Ángel León
+ * Barra de menus.
+ * 
+ * @author MIGUEL ANGEL LEON BARDAVIO
  *
  */
 public class BarraMenus extends MenuBar implements IListaListeners {
 
-
-
+	/**
+	 * Referencia a la lista de la compra.
+	 */
 	ListaCompra listaCompra;
 	
+	/**
+	 * Referencia al modelo de persistencia.
+	 */
 	IPersistencia persistencia;
 	
 	/**
-	 * @param listaCompra
-	 * @param persistencia
+	 * Constructor de los menus.
+	 * 
+	 * @param mainPanel Nodo padre.
 	 */
 	public BarraMenus(MainPanel mainPanel) {
 		
@@ -50,9 +54,9 @@ public class BarraMenus extends MenuBar implements IListaListeners {
     	menuShoppingList.getItems().addAll(saveList, openList, clearList, Exit);
     	Menu menuFavoritesList = new Menu("Favorites list");
     	MenuItem addFavourite = new MenuItem("Add favourite");
-    	addFavourite.setOnAction(new addFavouriteListener(listaCompra));
+    	addFavourite.setOnAction(new AddFavouriteListener(listaCompra));
     	MenuItem delFavourite = new MenuItem("Remove favourite");
-    	delFavourite.setOnAction(new delFavouriteListener(listaCompra));
+    	delFavourite.setOnAction(new DelFavouriteListener(listaCompra));
     	MenuItem clearFavourites = new MenuItem("Clear favourites");
     	clearFavourites.setOnAction(new ClearFavouritesListener(listaCompra));
     	menuFavoritesList.getItems().addAll(addFavourite, delFavourite, clearFavourites);

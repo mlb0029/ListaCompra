@@ -164,7 +164,7 @@ public class ListaCompra implements ISujeto_Observado{
 	 * @param nombreProducto Nombre del producto a comprar.
 	 * @param cantidad Cantidad del producto a comprar.
 	 * @return True si se ha añadido, False en caso contario.
-	 * @see IListaCompra#anadirFavorito(String)
+	 * @see ListaCompra#anadirFavorito(String)
 	 */
 	public Boolean anadirProducto(String nombreProducto, Integer cantidad) {
 		Boolean retorno = false;
